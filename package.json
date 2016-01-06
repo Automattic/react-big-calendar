@@ -35,8 +35,8 @@
     "release": "release"
   },
   "peerDependencies": {
-    "react": "^0.14.0-beta1",
-    "react-dom": "^0.14.0-beta3"
+    "react": "^0.14.5",
+    "react-dom": "^0.14.5"
   },
   "devDependencies": {
     "markdown-jsx-loader": "^1.0.0",
@@ -81,10 +81,8 @@
     "node-libs-browser": "^0.5.2",
     "postcss-loader": "^0.6.0",
     "raw-loader": "^0.5.1",
-    "react": "^0.14.0",
     "react-bootstrap": "^0.27.2",
     "react-component-metadata": "^1.2.2",
-    "react-dom": "^0.14.0",
     "release-script": "^0.2.1",
     "rimraf": "^2.4.2",
     "simulant": "^0.1.5",
