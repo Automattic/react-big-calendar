@@ -16,6 +16,7 @@ import viewLabel from './utils/viewLabel';
 import moveDate from './utils/move';
 import VIEWS from './Views';
 import Toolbar from './Toolbar';
+import Staffbar from './Staffbar';
 
 import omit from 'lodash/object/omit';
 import defaults from 'lodash/object/defaults';
@@ -312,6 +313,8 @@ let Calendar = React.createClass({
       , style
       , className
       , date: current
+      , me
+      , staffs
       , ...props } = this.props;
 
     formats = defaultFormats(formats)
@@ -344,6 +347,10 @@ let Calendar = React.createClass({
             messages={this.props.messages}
           />
         }
+        <Staffbar
+          me={me}
+          staffs= {staffs}
+        />
         <View
           ref='view'
           {...props}
