@@ -347,10 +347,12 @@ let Calendar = React.createClass({
             messages={this.props.messages}
           />
         }
-        <Staffbar
-          me={me}
-          staffs= {staffs}
-        />
+        { 'day' == view &&
+          <Staffbar
+            me={me}
+            staffs= {staffs}
+          />
+        }
         <View
           ref='view'
           {...props}
