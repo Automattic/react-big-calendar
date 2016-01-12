@@ -100,8 +100,9 @@ let TimeGrid = React.createClass({
             <div ref={addGutterRef(0)} className='rbc-gutter-cell'/>
             { this.renderHeader(range) }
           </div>
-          // southp: remove the 'all-day event' row by hard coding.
-          { false &&
+          {
+            // southp: remove the 'all-day event' row by hard coding.
+            false &&
             <div className='rbc-row'>
               <div ref={addGutterRef(1)} className='rbc-gutter-cell'>
                 { message(messages).allDay }
