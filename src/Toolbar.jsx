@@ -24,7 +24,7 @@ let Toolbar = React.createClass({
       <div className='rbc-toolbar'>
         {
           ( 0 != calendarList.length ) &&
-            <select onChange={onCalendarChange}>
+            <select className='rbc-toolbar-calendar-list' onChange={onCalendarChange}>
               { calendarList.map( renderCalendarListItem ) }
             </select>
         }
