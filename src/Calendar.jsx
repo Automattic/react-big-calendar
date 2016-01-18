@@ -295,7 +295,25 @@ let Calendar = React.createClass({
       day: PropTypes.string,
       agenda: PropTypes.string,
       showMore: PropTypes.func
-    })
+    }),
+
+    // southp:
+    // Properties from us go here
+    //
+    /**
+     * A list of name/value pair representing a calendar each.
+     */
+    calendarList: PropTypes.arrayOf(
+      PropTypes.shape( {
+        name : PropTypes.string,
+        value: PropTypes.number,
+    })),
+
+    /**
+     * Callback fired when the value of dropdown calendar boxchanges.
+     *
+     */
+    onCalendarChange: PropTypes.func,
   },
 
   getDefaultProps() {
@@ -309,7 +327,9 @@ let Calendar = React.createClass({
       titleAccessor: 'title',
       allDayAccessor: 'allDay',
       startAccessor: 'start',
-      endAccessor: 'end'
+      endAccessor: 'end',
+
+      calendarList: [],
     };
   },
 
@@ -324,6 +344,7 @@ let Calendar = React.createClass({
       , date: current
       , me
       , staffs
+      , calendarList
       , ...props } = this.props;
 
     formats = defaultFormats(formats)
@@ -351,6 +372,8 @@ let Calendar = React.createClass({
             view={view}
             views={names}
             label={viewLabel(current, view, formats, culture)}
+            calendarList={calendarList}
+            onCalendarChange={this._calendarChange}
             onViewChange={this._view}
             onNavigate={this._navigate}
             messages={this.props.messages}
@@ -425,6 +448,10 @@ let Calendar = React.createClass({
 
   _staffToggle(event) {
     notify( this.props.onStaffToggle, event );
+  },
+
+  _calendarChange(event) {
+    notify( this.props.onCalendarChange, event );
   }
 });
 

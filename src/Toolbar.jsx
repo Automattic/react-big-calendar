@@ -3,17 +3,31 @@ import cn from 'classnames';
 import message from './utils/messages';
 import { navigate } from './utils/constants';
 
+const renderCalendarListItem = ( itemData ) => {
+  return (
+      <option key={ itemData.value } value={ itemData.value }> { itemData.name } </option>
+  );
+};
+
+
 let Toolbar = React.createClass({
 
   render() {
     let {
         messages, label
-      , views: viewNames, view } = this.props;
+      , views: viewNames, view
+      , calendarList, onCalendarChange } = this.props;
 
     messages = message(messages)
 
     return (
       <div className='rbc-toolbar'>
+        {
+          ( 0 != calendarList.length ) &&
+            <select onChange={onCalendarChange}>
+              { calendarList.map( renderCalendarListItem ) }
+            </select>
+        }
         <span className='rbc-toolbar-label'>
           { label }
         </span>
