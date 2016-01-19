@@ -294,7 +294,11 @@ let Calendar = React.createClass({
       week: PropTypes.string,
       day: PropTypes.string,
       agenda: PropTypes.string,
-      showMore: PropTypes.func
+      showMore: PropTypes.func,
+
+      join: PropTypes.string,
+      joined: PropTypes.string,
+      leave: PropTypes.string,
     }),
 
     // southp:
@@ -310,10 +314,22 @@ let Calendar = React.createClass({
     })),
 
     /**
+     * A flag indicating whether the viewer is a staff of this calendar or not.
+     */
+    isStaff: PropTypes.bool,
+
+    /**
      * Callback fired when the value of dropdown calendar boxchanges.
      *
      */
     onCalendarChange: PropTypes.func,
+
+    /**
+     * Callback fired when clicking the join button.
+     *
+     */
+    onClickJoin: PropTypes.func,
+    onClickLeave: PropTypes.func,
   },
 
   getDefaultProps() {
@@ -329,6 +345,7 @@ let Calendar = React.createClass({
       startAccessor: 'start',
       endAccessor: 'end',
 
+      isStaff: false,
       calendarList: [],
     };
   },
@@ -345,6 +362,7 @@ let Calendar = React.createClass({
       , me
       , staffs
       , calendarList
+      , isStaff
       , ...props } = this.props;
 
     formats = defaultFormats(formats)
@@ -372,7 +390,10 @@ let Calendar = React.createClass({
             view={view}
             views={names}
             label={viewLabel(current, view, formats, culture)}
+            isStaff={isStaff}
             calendarList={calendarList}
+            onClickJoin={this._clickJoin}
+            onClickLeave={this._clickLeave}
             onCalendarChange={this._calendarChange}
             onViewChange={this._view}
             onNavigate={this._navigate}
@@ -448,6 +469,14 @@ let Calendar = React.createClass({
 
   _staffToggle(event) {
     notify( this.props.onStaffToggle, event );
+  },
+
+  _clickJoin(event) {
+    notify( this.props.onClickJoin, event );
+  },
+
+  _clickLeave(event) {
+    notify( this.props.onClickLeave, event );
   },
 
   _calendarChange(event) {

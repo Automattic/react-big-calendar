@@ -15,6 +15,10 @@ import invariant from 'invariant';
   today: 'today',
   agenda: 'agenda',
 
+  join: 'Join this calendar',
+  joined: 'Joined',
+  leave: 'Leave',
+
   showMore: total => `+${total} more`
 }
 

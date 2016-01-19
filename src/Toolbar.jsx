@@ -9,6 +9,22 @@ const renderCalendarListItem = ( itemData ) => {
   );
 };
 
+const JoinButton = ( props ) => {
+  const { isStaff, onClickJoin, onClickLeave, joinMsg, joinedMsg, leaveMsg } = props;
+
+  const callback = isStaff ? onClickLeave : onClickJoin;
+  const msg      = isStaff ? leaveMsg     : joinMsg;
+
+  return (
+      <button
+        type='button'
+        onClick={ callback }
+      >
+        { msg }
+      </button>
+  );
+};
+
 
 let Toolbar = React.createClass({
 
@@ -16,7 +32,9 @@ let Toolbar = React.createClass({
     let {
         messages, label
       , views: viewNames, view
-      , calendarList, onCalendarChange } = this.props;
+      , isStaff
+      , calendarList, onCalendarChange, onClickJoin
+      , onClickLeave } = this.props;
 
     messages = message(messages)
 
@@ -28,6 +46,14 @@ let Toolbar = React.createClass({
               { calendarList.map( renderCalendarListItem ) }
             </select>
         }
+        <JoinButton
+          isStaff={isStaff}
+          onClickJoin={onClickJoin}
+          onClickLeave={onClickLeave}
+          joinMsg={messages.join}
+          joinedMsg={messages.joined}
+          leaveMsg={messages.leave}
+        />
         <span className='rbc-toolbar-label'>
           { label }
         </span>
