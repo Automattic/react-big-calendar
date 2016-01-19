@@ -304,6 +304,16 @@ let Calendar = React.createClass({
     // southp:
     // Properties from us go here
     //
+    me: PropTypes.shape( {
+      email: PropTypes.string,
+      name: PropTypes.string,
+    } ),
+
+    others: PropTypes.arrayOf( PropTypes.shape( {
+      email: PropTypes.string,
+      name: PropTypes.string,
+    } ) ),
+
     /**
      * A list of name/value pair representing a calendar each.
      */
@@ -345,6 +355,9 @@ let Calendar = React.createClass({
       startAccessor: 'start',
       endAccessor: 'end',
 
+      me: {},
+      others: [],
+
       isStaff: false,
       calendarList: [],
     };
@@ -360,7 +373,7 @@ let Calendar = React.createClass({
       , className
       , date: current
       , me
-      , staffs
+      , others
       , calendarList
       , isStaff
       , ...props } = this.props;
@@ -403,7 +416,7 @@ let Calendar = React.createClass({
         { 'day' == view &&
           <Staffbar
             me={me}
-            staffs={staffs}
+            others={others}
             onStaffToggle={this._staffToggle}
           />
         }

@@ -12,11 +12,14 @@ const createGravatar = ( props ) => {
   const { email, size, defaultImage } = props;
 
   return (
-    <Gravatar
-      email={ email }
-      size={ size }
-      defaultImage={ defaultImage }
-    />
+    <span className='rbc-staffbar-staffs-staff'>
+      <Gravatar
+        key= { email }
+        email={ email }
+        size={ size }
+        defaultImage={ defaultImage }
+      />
+    </span>
   );
 };
 
@@ -33,7 +36,7 @@ const StaffToggle = ( props ) => {
 };
 
 const Staffbar = ( props ) => {
-  const { me, staffs, onStaffToggle } = props;
+  const { me, others, onStaffToggle } = props;
 
   return (
     <div className='rbc-staffbar'>
@@ -41,7 +44,7 @@ const Staffbar = ( props ) => {
         { createGravatar( me ) }
       </span>
       <span className='rbc-staffbar-staffs'>
-        { _.map( staffs, createGravatar ) }
+        { _.map( others, createGravatar ) }
       </span>
       <span className='rbc-staffbar-buttons'>
         <StaffToggle
