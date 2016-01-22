@@ -417,6 +417,7 @@ let Calendar = React.createClass({
           <Staffbar
             me={me}
             others={others}
+            isStaff={isStaff}
             onStaffToggle={this._staffToggle}
           />
         }
