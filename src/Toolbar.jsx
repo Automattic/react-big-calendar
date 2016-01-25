@@ -46,54 +46,72 @@ let Toolbar = React.createClass({
           </span>
         </div>
         <div className='rbc-toolbar-tools'>
-          {
-            ( 0 != calendarList.length ) &&
-              <select className='rbc-toolbar-calendar-list' onChange={onCalendarChange}>
-                { calendarList.map( renderCalendarListItem ) }
-              </select>
-          }
-          <JoinButton
-            isStaff={isStaff}
-            onClickJoin={onClickJoin}
-            onClickLeave={onClickLeave}
-            joinMsg={messages.join}
-            joinedMsg={messages.joined}
-            leaveMsg={messages.leave}
-          />
+          <div className='rbc-toolbar-calendars'>          
+          	{
+	            ( 0 != calendarList.length ) &&
+	              <select className='rbc-toolbar-calendar-list' onChange={onCalendarChange}>
+	                { calendarList.map( renderCalendarListItem ) }
+	              </select>
+	          }
+	          <JoinButton
+	            isStaff={isStaff}
+	            onClickJoin={onClickJoin}
+	            onClickLeave={onClickLeave}
+	            joinMsg={messages.join}
+	            joinedMsg={messages.joined}
+	            leaveMsg={messages.leave}
+	          />
+	          <div className="dropdown-container">
+		          <a href='#'>Menu</a>
+		          <div className='dropdown dropdown-left hidden'>
+		          	<ul>
+		          		<li><a href='#'>Leave calendar</a></li>
+		          		<li className='dropdown-separator'><a href='#'>General settings</a></li>
+		          		<li><a href='#'>Create a calendar</a></li>
+		          		<li><a href='#'>Edit this calendar</a></li>
+		          		<li className='dropdown-separator dropdown-highlight'><a href='#'>Delete this calendar</a></li>
+		          	</ul>
+		          </div>
+		         </div>
+	      	</div>
 
-          <span className='rbc-btn-group'>
-            <button
-              type='button'
-              onClick={this.navigate.bind(null, navigate.TODAY)}
-            >
-              {messages.today}
-            </button>
-            <button
-              type='button'
-              onClick={this.navigate.bind(null, navigate.PREVIOUS)}
-            >
-              {messages.previous}
-            </button>
-            <button
-              type='button'
-              onClick={this.navigate.bind(null, navigate.NEXT)}
-            >
-              {messages.next}
-            </button>
-          </span>
+          <div className="rbc-toolbar-navigate">
+	          <span className='rbc-btn-group'>
+	            <button
+	              type='button'
+	              onClick={this.navigate.bind(null, navigate.TODAY)}
+	            >
+	              {messages.today}
+	            </button>
+	          </span>
+	          <span className='rbc-btn-group'>
+	            <button
+	              type='button'
+	              onClick={this.navigate.bind(null, navigate.PREVIOUS)}
+	            >
+	              {messages.previous}
+	            </button>
+	            <button
+	              type='button'
+	              onClick={this.navigate.bind(null, navigate.NEXT)}
+	            >
+	              {messages.next}
+	            </button>
+	          </span>
 
-          <span className='rbc-btn-group'>
-            {
-              viewNames.map(name =>
-                <button type='button' key={name}
-                  className={cn({'rbc-active': view === name})}
-                  onClick={this.view.bind(null, name)}
-                >
-                  {messages[name]}
-                </button>
-              )
-            }
-          </span>
+	          <span className='rbc-btn-group'>
+	            {
+	              viewNames.map(name =>
+	                <button type='button' key={name}
+	                  className={cn({'rbc-active': view === name})}
+	                  onClick={this.view.bind(null, name)}
+	                >
+	                  {messages[name]}
+	                </button>
+	              )
+	            }
+	          </span>
+	      	</div>
         </div>
       </div>
     );
