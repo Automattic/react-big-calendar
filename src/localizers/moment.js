@@ -9,19 +9,19 @@ function inSame12Hr(start, end){
 }
 
 let dateRangeFormat = ({ start, end }, culture, local)=>
-  local.format(start, 'L', culture) + ' — ' + local.format(end, 'L', culture)
+  local.format(start, 'L', culture) + ' to ' + local.format(end, 'L', culture)
 
 let timeRangeFormat = ({ start, end }, culture, local)=>
   local.format(start, 'h:mma', culture) +
-    ' — ' + local.format(end, inSame12Hr(start, end) ? 'h:mm' : 'h:mma', culture)
+    '-' + local.format(end, inSame12Hr(start, end) ? 'h:mm' : 'h:mma', culture)
 
 let weekRangeFormat = ({ start, end }, culture, local)=>
-  local.format(start, 'MMM DD', culture) +
-    ' - ' + local.format(end, dates.eq(start, end, 'month') ? 'DD' : 'MMM DD', culture)
+  local.format(start, 'MMMM DD', culture) +
+    ' to ' + local.format(end, dates.eq(start, end, 'month') ? 'DD' : 'MMMM DD', culture)
 
 export let formats = {
   dateFormat: 'DD',
-  dayFormat: 'ddd DD/MM',
+  dayFormat: 'ddd DD',
   weekdayFormat: 'ddd',
 
   selectRangeFormat: timeRangeFormat,
