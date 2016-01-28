@@ -79,15 +79,20 @@ let DaySlot = React.createClass({
   render() {
     let {
         min, max, step, start, end
-      , selectRangeFormat, culture, ...props } = this.props;
+      , selectRangeFormat, culture
+      , staffingStatusFunc
+      , ...props } = this.props;
 
-    let totalMin = dates.diff(min, max, 'minutes')
-    let numSlots = Math.ceil(totalMin / step)
+    let totalMin = dates.diff(min, max, 'minutes');
+    let numSlots = Math.ceil(totalMin / step);
     let children = [];
 
     for (var i = 0; i < numSlots; i++) {
+      const slotDate = dates.add( min, step * i, 'minutes' );
+      const staffingStatus = staffingStatusFunc( slotDate );
+
       children.push(
-        <div key={i} className='rbc-time-slot'/>
+        <div key={i} className={cn('rbc-time-slot', staffingStatus.level)}/>
       )
     }
 
