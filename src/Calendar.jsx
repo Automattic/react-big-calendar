@@ -340,6 +340,11 @@ let Calendar = React.createClass({
      */
     onClickJoin: PropTypes.func,
     onClickLeave: PropTypes.func,
+
+    /**
+     * A function for computing staffing status given a Date object.
+     */
+    staffingStatusFunc: PropTypes.func,
   },
 
   getDefaultProps() {
@@ -360,6 +365,8 @@ let Calendar = React.createClass({
 
       isStaff: false,
       calendarList: [],
+
+      staffingStatusFunc: () => {},
     };
   },
 
@@ -376,6 +383,7 @@ let Calendar = React.createClass({
       , others
       , calendarList
       , isStaff
+      , staffingStatusFunc
       , ...props } = this.props;
 
     formats = defaultFormats(formats)
@@ -430,6 +438,7 @@ let Calendar = React.createClass({
           events={events}
           date={current}
           components={viewComponents}
+          staffingStatusFunc={staffingStatusFunc}
           onNavigate={this._navigate}
           onHeaderClick={this._headerClick}
           onSelectEvent={this._select}
