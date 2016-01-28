@@ -27,7 +27,7 @@ export let formats = {
   selectRangeFormat: timeRangeFormat,
   eventTimeRangeFormat: timeRangeFormat,
 
-  timeGutterFormat: 'LT',
+  timeGutterFormat: 'ha',
 
   monthHeaderFormat: 'MMMM YYYY',
   dayHeaderFormat: 'dddd MMM dd',
@@ -35,7 +35,7 @@ export let formats = {
   agendaHeaderFormat: dateRangeFormat,
 
   agendaDateFormat: 'ddd MMM DD',
-  agendaTimeFormat: 'LT',
+  agendaTimeFormat: 'LA',
   agendaTimeRangeFormat: timeRangeFormat
 }
 

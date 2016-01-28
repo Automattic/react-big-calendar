@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="8px" height="12px" viewBox="0 0 8 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.5.1 (25234) - http://www.bohemiancoding.com/sketch -->
+    <title>chevron-left</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="calendar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="03a-calendar-month-empty" sketch:type="MSArtboardGroup" transform="translate(-734.000000, -134.000000)" fill="#7F7F7F">
+            <g id="month-header" sketch:type="MSLayerGroup" transform="translate(32.000000, 124.000000)">
+                <g id="Rectangle-22-Copy-+-Rectangle-24" transform="translate(688.000000, 0.000000)" sketch:type="MSShapeGroup">
+                    <path d="M16.6568542,11.6568542 L23.6568542,11.6568542 L23.6568542,13.6568542 L17.6568542,13.6568542 L17.6568542,19.6568542 L15.6568542,19.6568542 L15.6568542,11.6568542 L16.6568542,11.6568542 Z" id="chevron-left" transform="translate(19.656854, 15.656854) rotate(-45.000000) translate(-19.656854, -15.656854) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

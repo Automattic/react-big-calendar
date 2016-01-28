@@ -53,6 +53,30 @@ let Toolbar = React.createClass({
 	                { calendarList.map( renderCalendarListItem ) }
 	              </select>
 	          }
+	          <div className='select-container'>
+	          	<a href='#'>LiveChat</a>
+	          	<div className='select hidden'>
+	          		<div className='select-calendar-search'>
+	          			<input type='text' placeholder='Search' />
+	          		</div>
+	          		<div className='select-calendar-type'>
+	          			<h5>Your calendars</h5>
+	          			<ul>
+	          				<li><a href='#'>LiveChat</a></li>
+	          				<li><a href='#'>LiveChat UTC+</a></li>
+	          			</ul>
+	          		</div>
+	          		<div className='select-calendar-type'>
+	          			<h5>Other</h5>
+	          			<ul>
+	          				<li><a href='#'>Other calendar</a></li>
+	          				<li><a href='#'>One more</a></li>
+	          				<li><a href='#'>Lipsum</a></li>
+	          				<li><a href='#'>Another one</a></li>
+	          			</ul>
+	          		</div>
+	          	</div>
+	          </div>
 	          <JoinButton
 	            isStaff={isStaff}
 	            onClickJoin={onClickJoin}
@@ -61,8 +85,8 @@ let Toolbar = React.createClass({
 	            joinedMsg={messages.joined}
 	            leaveMsg={messages.leave}
 	          />
-	          <div className="dropdown-container">
-		          <a href='#'>Menu</a>
+	          <div className='dropdown-container'>
+		          <a href='#'>menu</a>
 		          <div className='dropdown dropdown-left hidden'>
 		          	<ul>
 		          		<li><a href='#'>Leave calendar</a></li>
@@ -75,7 +99,7 @@ let Toolbar = React.createClass({
 		         </div>
 	      	</div>
 
-          <div className="rbc-toolbar-navigate">
+          <div className='rbc-toolbar-navigate'>
 	          <span className='rbc-btn-group'>
 	            <button
 	              type='button'
