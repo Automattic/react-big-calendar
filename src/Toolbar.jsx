@@ -3,6 +3,8 @@ import cn from 'classnames';
 import message from './utils/messages';
 import { navigate } from './utils/constants';
 
+import mailIcon from './icon/email5.svg';
+
 const renderCalendarListItem = ( itemData ) => {
   return (
       <option key={ itemData.value } value={ itemData.value }> { itemData.name } </option>
@@ -46,7 +48,8 @@ let Toolbar = React.createClass({
           </span>
         </div>
         <div className='rbc-toolbar-tools'>
-          <div className='rbc-toolbar-calendars'>          
+          <img src={ mailIcon } width={32} height={32} />
+          <div className='rbc-toolbar-calendars'>
           	{
 	            ( 0 != calendarList.length ) &&
 	              <select className='rbc-toolbar-calendar-list' onChange={onCalendarChange}>
