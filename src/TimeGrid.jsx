@@ -100,25 +100,6 @@ let TimeGrid = React.createClass({
             <div ref={addGutterRef(0)} className='rbc-gutter-cell'/>
             { this.renderHeader(range) }
           </div>
-          {
-            // southp: remove the 'all-day event' row by hard coding.
-            false &&
-            <div className='rbc-row'>
-              <div ref={addGutterRef(1)} className='rbc-gutter-cell'>
-                { message(messages).allDay }
-              </div>
-              <div ref='allDay' className='rbc-allday-cell'>
-                <BackgroundCells
-                  slots={range.length}
-                  container={()=> this.refs.allDay}
-                  selectable={this.props.selectable}
-                />
-                <div style={{ zIndex: 1, position: 'relative' }}>
-                  { this.renderAllDayEvents(range, levels) }
-                </div>
-              </div>
-            </div>
-          }
         </div>
         <div ref='content' className='rbc-time-content'>
           <TimeGutter ref='gutter' {...this.props}/>
