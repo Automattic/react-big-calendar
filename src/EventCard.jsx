@@ -6,12 +6,10 @@ import { ItemTypes } from './Constants';
 
 const eventCardDragSource = {
   beginDrag( props ) {
+    const event = props.event;
+
     return {
-      id        : props.id,
-      calendarId: props.calendarId,
-      userId    : props.userId,
-      start     : props.start,
-      end       : props.end,
+      ...event,
     };
   },
 }
@@ -36,6 +34,7 @@ class EventCard extends Component {
       lastLeftOffset,
       connectDragSource,
       isDragging,
+      event,
     } = this.props;
 
     const EventComponent = eventComponent;
@@ -62,4 +61,4 @@ class EventCard extends Component {
   }
 }
 
-export default DragSource( ItemTypes.EventCell, eventCardDragSource, collect )( EventCard );
+export default DragSource( ItemTypes.EventCard, eventCardDragSource, collect )( EventCard );

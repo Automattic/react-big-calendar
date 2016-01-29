@@ -2,6 +2,9 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import Selection, { getBoundsForNode } from './Selection';
 import cn from 'classnames';
+import { DropTarget } from 'react-dnd';
+import { ItemTypes } from './Constants';
+
 import dates from './utils/dates';
 import { isSelected } from './utils/selection';
 import localizer from './localizer'
@@ -38,6 +41,23 @@ function overlaps(event, events, { startAccessor, endAccessor }, last) {
   return offset
 }
 
+const daySlotTarget = {
+  drop( props, monitor ) {
+    console.log("YAAAAAA!", props, monitor.getItem() );
+  },
+  canDrop( props ) {
+    return true;
+  },
+};
+
+function collect( connect, monitor ) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop(),
+  };
+}
+
 let DaySlot = React.createClass({
 
   propTypes: {
@@ -54,7 +74,10 @@ let DaySlot = React.createClass({
     eventOffset: React.PropTypes.number,
 
     onSelectSlot: React.PropTypes.func.isRequired,
-    onSelectEvent: React.PropTypes.func.isRequired
+    onSelectEvent: React.PropTypes.func.isRequired,
+
+    isOver: React.PropTypes.bool.isRequired,
+    canDrop: React.PropTypes.bool.isRequired,
   },
 
   getInitialState() {
@@ -83,6 +106,9 @@ let DaySlot = React.createClass({
         min, max, step, start, end
       , selectRangeFormat, culture
       , staffingStatusFunc
+      , isOver
+      , canDrop
+      , connectDropTarget
       , ...props } = this.props;
 
     let totalMin = dates.diff(min, max, 'minutes');
@@ -108,7 +134,7 @@ let DaySlot = React.createClass({
       end: this.state.endDate
     };
 
-    return (
+    return connectDropTarget(
       <div {...props} className={cn('rbc-day-slot', props.className)}>
         { children }
         { this.renderEvents(numSlots, totalMin) }
@@ -161,6 +187,7 @@ let DaySlot = React.createClass({
           classNamePostfix={className}
           eventComponent={eventComponent}
           label={label}
+          event={event}
         />
       );
     })
@@ -283,4 +310,4 @@ function minToDate(min, date){
   return dates.milliseconds(dt, 0)
 }
 
-export default DaySlot;
+export default DropTarget( ItemTypes.EventCard, daySlotTarget, collect )( DaySlot );
