@@ -3,6 +3,10 @@ import cn from 'classnames';
 import message from './utils/messages';
 import { navigate } from './utils/constants';
 
+import iconCog from './img/icon-cog.svg';
+import chevronLeft from './img/chevron-left.svg';
+import chevronRight from './img/chevron-right.svg';
+
 const renderCalendarListItem = ( itemData ) => {
   return (
       <option key={ itemData.value } value={ itemData.value }> { itemData.name } </option>
@@ -86,7 +90,7 @@ let Toolbar = React.createClass({
 	            leaveMsg={messages.leave}
 	          />
 	          <div className='dropdown-container'>
-		          <a href='#'>menu</a>
+		          <a href='#' className='icon'><img src={ iconCog } /></a>
 		          <div className='dropdown dropdown-left hidden'>
 		          	<ul>
 		          		<li><a href='#'>Leave calendar</a></li>
@@ -111,15 +115,17 @@ let Toolbar = React.createClass({
 	          <span className='rbc-btn-group'>
 	            <button
 	              type='button'
+	              className='button-img'
 	              onClick={this.navigate.bind(null, navigate.PREVIOUS)}
 	            >
-	              {messages.previous}
+	              <img src={ chevronLeft } />
 	            </button>
 	            <button
 	              type='button'
+	              className='button-img'
 	              onClick={this.navigate.bind(null, navigate.NEXT)}
 	            >
-	              {messages.next}
+	              <img src={ chevronRight } />
 	            </button>
 	          </span>
 
