@@ -1,5 +1,27 @@
 import React, { Component } from 'react';
 import cn from 'classnames';
+import { DragSource } from 'react-dnd';
+
+import { ItemTypes } from './Constants';
+
+const eventCardDragSource = {
+  beginDrag( props ) {
+    return {
+      id        : props.id,
+      calendarId: props.calendarId,
+      userId    : props.userId,
+      start     : props.start,
+      end       : props.end,
+    };
+  },
+}
+
+function collect( connect, monitor ) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+  }
+}
 
 class EventCard extends Component {
   render() {
@@ -12,11 +34,13 @@ class EventCard extends Component {
       eventComponent,
       isSelected,
       lastLeftOffset,
+      connectDragSource,
+      isDragging,
     } = this.props;
 
     const EventComponent = eventComponent;
 
-    return (
+    return connectDragSource(
       <div
         style={style}
         title={label + ': ' + title }
@@ -34,8 +58,8 @@ class EventCard extends Component {
           }
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default EventCard;
+export default DragSource( ItemTypes.EventCell, eventCardDragSource, collect )( EventCard );
