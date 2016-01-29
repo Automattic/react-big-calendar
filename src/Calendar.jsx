@@ -342,6 +342,12 @@ let Calendar = React.createClass({
     onClickLeave: PropTypes.func,
 
     /**
+     * Callback fired when dropping a EventCard
+     *
+     */
+    onDropEventCard: PropTypes.func,
+
+    /**
      * A function for computing staffing status given a Date object.
      */
     staffingStatusFunc: PropTypes.func,
@@ -444,6 +450,7 @@ let Calendar = React.createClass({
           onSelectEvent={this._select}
           onSelectSlot={this._selectSlot}
           onShowMore={this._showMore}
+          onDropEventCard={this._dropEventCard}
         />
       </div>
     );
@@ -504,7 +511,11 @@ let Calendar = React.createClass({
 
   _calendarChange(event) {
     notify( this.props.onCalendarChange, event );
-  }
+  },
+
+  _dropEventCard(event) {
+    notify( this.props.onDropEventCard, event );
+  },
 });
 
 export default uncontrollable(Calendar, { view: 'onView', date: 'onNavigate', selected: 'onSelectEvent' })

@@ -6,7 +6,10 @@ import { ItemTypes } from './Constants';
 
 const timeSlotTarget = {
   drop( props, monitor ) {
-    console.log("YAAAAAA!", props, monitor.getItem() );
+    props.onDropEventCard( {
+      date: props.date,
+      item: monitor.getItem(),
+    } )
   },
   canDrop( props ) {
     return true;

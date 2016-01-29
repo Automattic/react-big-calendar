@@ -57,6 +57,8 @@ let DaySlot = React.createClass({
 
     onSelectSlot: React.PropTypes.func.isRequired,
     onSelectEvent: React.PropTypes.func.isRequired,
+
+    onDropEventCard: React.PropTypes.func.isRequired,
   },
 
   getInitialState() {
@@ -85,6 +87,7 @@ let DaySlot = React.createClass({
         min, max, step, start, end
       , selectRangeFormat, culture
       , staffingStatusFunc
+      , onDropEventCard
       , ...props } = this.props;
 
     let totalMin = dates.diff(min, max, 'minutes');
@@ -100,6 +103,7 @@ let DaySlot = React.createClass({
           key={i}
           staffingLevel={staffingStatus.level}
           date={slotDate}
+          onDropEventCard={onDropEventCard}
         />
       );
     }
