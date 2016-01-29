@@ -1,6 +1,9 @@
 import React from 'react';
 import cn from 'classnames';
 import { findDOMNode } from 'react-dom';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 import dates from './utils/dates';
 import localizer from './localizer'
 
@@ -215,5 +218,4 @@ let TimeGrid = React.createClass({
 
 });
 
-
-export default TimeGrid
+export default DragDropContext( HTML5Backend )( TimeGrid );
