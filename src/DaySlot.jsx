@@ -14,6 +14,7 @@ import { accessor } from './utils/propTypes';
 import { accessor as get } from './utils/accessors';
 
 import EventCard from './EventCard';
+import TimeSlot from './TimeSlot';
 
 function snapToSlot(date, step){
   var roundTo = 1000 * 60 * step;
@@ -120,8 +121,8 @@ let DaySlot = React.createClass({
       const staffingStatus = staffingStatusFunc( slotDate );
 
       children.push(
-        <div key={i} className={cn('rbc-time-slot', staffingStatus.level)}/>
-      )
+        <TimeSlot key={i} staffingLevel={staffingStatus.level} />
+      );
     }
 
     this._totalMin = totalMin;
