@@ -10,6 +10,8 @@ import { notify } from './utils/helpers';
 import { accessor } from './utils/propTypes';
 import { accessor as get } from './utils/accessors';
 
+import EventCard from './EventCard';
+
 function snapToSlot(date, step){
   var roundTo = 1000 * 60 * step;
   return new Date(Math.floor(date.getTime() / roundTo) * roundTo)
@@ -128,8 +130,7 @@ let DaySlot = React.createClass({
       , selected, eventTimeRangeFormat, eventComponent
       , startAccessor, endAccessor, titleAccessor } = this.props;
 
-    let EventComponent = eventComponent
-      , lastLeftOffset = 0;
+    let lastLeftOffset = 0;
 
     events.sort((a, b) => +get(a, startAccessor) - +get(b, startAccessor))
 
@@ -152,25 +153,16 @@ let DaySlot = React.createClass({
         var { style: xStyle, className } = eventPropGetter(event, start, end, _isSelected);
 
       return (
-        <div
+        <EventCard
           key={'evt_' + idx}
           style={{...xStyle, ...style}}
-          title={label + ': ' + title }
+          title={title}
           onClick={this._select.bind(null, event)}
-          className={cn('rbc-event', className, {
-            'rbc-selected': _isSelected,
-            'rbc-event-overlaps': lastLeftOffset !== 0
-          })}
-        >
-          <div className='rbc-event-label'>{label}</div>
-          <div className='rbc-event-content'>
-            { EventComponent
-              ? <EventComponent event={event} title={title}/>
-              : title
-            }
-          </div>
-        </div>
-      )
+          classNamePostfix={className}
+          eventComponent={eventComponent}
+          label={label}
+        />
+      );
     })
   },
 
