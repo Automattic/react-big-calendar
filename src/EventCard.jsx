@@ -27,6 +27,8 @@ class EventCard extends Component {
       style,
       title,
       onClick,
+      onMouseDown,
+      onMouseUp,
       classNamePostfix,
       label,
       eventComponent,
@@ -44,6 +46,8 @@ class EventCard extends Component {
         style={style}
         title={label + ': ' + title }
         onClick={onClick}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
         className={cn('rbc-event', classNamePostfix, {
           'rbc-selected': isSelected,
           'rbc-event-overlaps': lastLeftOffset !== 0

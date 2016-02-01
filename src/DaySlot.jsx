@@ -162,12 +162,31 @@ let DaySlot = React.createClass({
       if (eventPropGetter)
         var { style: xStyle, className } = eventPropGetter(event, start, end, _isSelected);
 
+
+      let pauseSelector = () => {
+        return ( event ) => {
+          if ( this._selector ) {
+            this._selector.pause();
+          }
+        }
+      }
+
+      let resumeSelector = () => {
+        return ( event ) => {
+          if ( this._selector ) {
+            this._selector.resume();
+          }
+        }
+      }
+
       return (
         <EventCard
           key={'evt_' + idx}
           style={{...xStyle, ...style}}
           title={title}
           onClick={this._select.bind(null, event)}
+          onMouseDown={pauseSelector()}
+          onMouseUp={resumeSelector()}
           classNamePostfix={className}
           eventComponent={eventComponent}
           label={label}

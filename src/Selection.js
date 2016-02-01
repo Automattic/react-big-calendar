@@ -77,7 +77,19 @@ class Selection {
     return items.filter(this.isSelected, this)
   }
 
+  pause() {
+    this._pause = true;
+  }
+
+  resume() {
+    this._pause = false;
+  }
+
   _mouseDown (e) {
+    if ( this._pause ) {
+      return;
+    }
+
     var node = this.container()
       , collides, offsetData;
 
