@@ -18,13 +18,24 @@ const typeToText = ( type ) => {
 };
 
 const FilterMenu = ( props ) => {
+  const {
+    onClickYou,
+    onClickAvailable,
+    onClickAll,
+  } = props;
   const itemClassName = 'rbc-event-filter-menu-item';
 
   return (
     <div className='rbc-event-filter-menu-content'>
-     <button className={itemClassName}>{ typeToText( FilterType.You ) }</button>
-     <button className={itemClassName}>{ typeToText( FilterType.Available ) }</button>
-     <button className={itemClassName}>{ typeToText( FilterType.All ) }</button>
+     <button className={itemClassName} onClick={onClickYou}>
+       { typeToText( FilterType.You ) }
+     </button>
+     <button className={itemClassName} onClick={onClickAvailable}>
+       { typeToText( FilterType.Available ) }
+     </button>
+     <button className={itemClassName} onClick={onClickAll}>
+       { typeToText( FilterType.All ) }
+     </button>
     </div>
   );
 };
@@ -70,7 +81,23 @@ class EventFilterMenu extends Component {
         show={ null != showMenu }
         onHide={ () => this.setState( { showMenu: null } ) }
       >
-        <FilterMenu />
+        <FilterMenu
+          onClickYou = { ( event ) => {
+            this.setState( {
+              filterType: FilterType.You,
+            } )
+          } }
+          onClickAvailable = { ( event ) => {
+            this.setState( {
+              filterType: FilterType.Available,
+            } )
+          } }
+          onClickAll = { ( event ) => {
+            this.setState( {
+              filterType: FilterType.All,
+            } )
+          } }
+        />
       </Overlay>
     );
   }
