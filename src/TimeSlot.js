@@ -36,9 +36,8 @@ const StaffingStatus = ( props ) => {
       <div
         className={cn('rbc-time-slot','staffing-status')}
         style={ {
-          position: 'relative',
-          height: '100%',
-          width: '20%',
+          height: '20px',
+          width: '32px',
         } }
       >
         { text }
@@ -80,9 +79,6 @@ class TimeSlot extends Component {
           this.setState( {
             hovered: false,
           } );
-        } }
-        style={ {
-          overflow: 'visible'
         } }
       >
         { hovered && this._renderStaffingStatus() }
