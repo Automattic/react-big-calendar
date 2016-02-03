@@ -24,31 +24,91 @@ function collect( connect, monitor ) {
   };
 }
 
+const StaffingStatus = ( props ) => {
+  const {
+    staffing,
+    need,
+  } = props;
+
+  const text = staffing + '/' + need;
+
+  return (
+      <div
+        className={cn('rbc-time-slot','staffing-status')}
+        style={ {
+          position: 'relative',
+          height: '100%',
+          width: '20%',
+        } }
+      >
+        { text }
+      </div>
+  );
+}
+
 class TimeSlot extends Component {
+  constructor( props ) {
+    super( props );
+
+    this.state = {
+      hovered: false,
+    };
+  }
+
   render() {
     const {
-      staffingLevel,
+      staffingStatus,
       date,
       connectDropTarget,
       isOver,
       canDrop,
     } = this.props;
 
+    const {
+      hovered
+    } = this.state;
+
     return connectDropTarget(
       <div
-        className={cn('rbc-time-slot', staffingLevel)}
+        className={cn('rbc-time-slot', staffingStatus.level)}
+        onMouseEnter={ ( event ) => {
+          this.setState( {
+            hovered: true,
+          } );
+        } }
+        onMouseOut={ ( event ) => {
+          this.setState( {
+            hovered: false,
+          } );
+        } }
+        style={ {
+          overflow: 'visible'
+        } }
       >
-      {
-        isOver &&
-        <div
-          style={ {
-            width: '100%',
-            height: '100%',
-          } }
-          className={cn('rbc-time-slot', 'dragging')}
-        />
-      }
+        { hovered && this._renderStaffingStatus() }
+        {
+          isOver &&
+          <div
+            style={ {
+              width: '100%',
+              height: '100%',
+            } }
+            className={cn('rbc-time-slot', 'dragging')}
+          />
+        }
       </div>
+    );
+  }
+
+  _renderStaffingStatus() {
+    const { staffingStatus } = this.props;
+    const { hovered } = this.state;
+
+    return (
+      <StaffingStatus
+        staffing={ staffingStatus.staffing }
+        need={ staffingStatus.need }
+      />
     );
   }
 }

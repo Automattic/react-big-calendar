@@ -101,7 +101,7 @@ let DaySlot = React.createClass({
       children.push(
         <TimeSlot
           key={i}
-          staffingLevel={staffingStatus.level}
+          staffingStatus={staffingStatus}
           date={slotDate}
           onDropEventCard={onDropEventCard}
         />
