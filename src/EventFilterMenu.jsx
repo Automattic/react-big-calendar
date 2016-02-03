@@ -26,16 +26,17 @@ const FilterMenu = ( props ) => {
   const itemClassName = 'rbc-event-filter-menu-item';
 
   return (
-    <div className='rbc-event-filter-menu-content'>
-     <button className={itemClassName} onClick={onClickYou}>
-       { typeToText( FilterType.You ) }
-     </button>
-     <button className={itemClassName} onClick={onClickAvailable}>
-       { typeToText( FilterType.Available ) }
-     </button>
-     <button className={itemClassName} onClick={onClickAll}>
-       { typeToText( FilterType.All ) }
-     </button>
+    <div className='rbc-event-filter-menu-content'
+      style={ {
+        position: 'absolute',
+        zIndex: 999,
+      } }
+    >
+    <ul>
+      <li><a href='#' className={itemClassName} onClick={onClickYou}> { typeToText( FilterType.You ) } </a></li>
+      <li><a href='#' className={itemClassName} onClick={onClickAvailable}> { typeToText( FilterType.Available ) } </a></li>
+      <li><a href='#' className={itemClassName} onClick={onClickAll}> { typeToText( FilterType.All ) } </a></li>
+    </ul>
     </div>
   );
 };
