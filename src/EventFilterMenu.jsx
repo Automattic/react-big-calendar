@@ -72,6 +72,11 @@ class EventFilterMenu extends Component {
 
   _renderMenu() {
     const { showMenu } = this.state;
+    const {
+      onPickFilterYou,
+      onPickFilterAvailable,
+      onPickFilterAll,
+    } = this.props;
 
     return (
       <Overlay
@@ -83,16 +88,22 @@ class EventFilterMenu extends Component {
       >
         <FilterMenu
           onClickYou = { ( event ) => {
+            onPickFilterYou && onPickFilterYou();
+
             this.setState( {
               filterType: FilterType.You,
             } )
           } }
           onClickAvailable = { ( event ) => {
+            onPickFilterAvailable && onPickFilterAvailable();
+
             this.setState( {
               filterType: FilterType.Available,
             } )
           } }
           onClickAll = { ( event ) => {
+            onPickFilterAll && onPickFilterAll();
+
             this.setState( {
               filterType: FilterType.All,
             } )

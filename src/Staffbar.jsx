@@ -23,16 +23,16 @@ const createGravatar = ( props, key ) => {
   );
 };
 
-const StaffToggle = ( props ) => {
-  const { onStaffToggle } = props;
-
-  return (
-    <EventFilterMenu />
-  );
-};
-
 const Staffbar = ( props ) => {
-  const { me, isStaff, others, onStaffToggle } = props;
+  const {
+    me,
+    isStaff,
+    others,
+    onStaffToggle,
+    onPickFilterYou,
+    onPickFilterAvailable,
+    onPickFilterAll,
+  } = props;
 
   return (
     <div className='rbc-staffbar'>
@@ -46,8 +46,10 @@ const Staffbar = ( props ) => {
         { _.map( others, createGravatar ) }
       </span>
       <span className='rbc-staffbar-buttons'>
-        <StaffToggle
-          onStaffToggle={ onStaffToggle }
+        <EventFilterMenu
+          onPickFilterYou={ onPickFilterYou }
+          onPickFilterAvailable= { onPickFilterAvailable }
+          onPickFilterAll = { onPickFilterAll }
         />
       </span>
     </div>

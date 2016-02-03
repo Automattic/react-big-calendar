@@ -138,13 +138,16 @@ let DaySlot = React.createClass({
     let {
         events, step, min, culture, eventPropGetter
       , selected, eventTimeRangeFormat, eventComponent
+      , displayFilterFunc
       , startAccessor, endAccessor, titleAccessor } = this.props;
 
     let lastLeftOffset = 0;
 
     events.sort((a, b) => +get(a, startAccessor) - +get(b, startAccessor))
 
-    return events.map((event, idx) => {
+    const filteredEvents = displayFilterFunc( events );
+
+    return filteredEvents.map((event, idx) => {
       let start = get(event, startAccessor)
       let end = get(event, endAccessor)
       let startSlot = positionFromDate(start, min, step);

@@ -376,6 +376,10 @@ let Calendar = React.createClass({
     };
   },
 
+  getInitialState() {
+    return {};
+  },
+
   render() {
     let {
         view, toolbar, events
@@ -392,6 +396,10 @@ let Calendar = React.createClass({
       , staffingStatusFunc
       , ...props } = this.props;
 
+    let {
+      currentDayDisplayFilter
+    } = this.state;
+
     formats = defaultFormats(formats)
 
     let View = VIEWS[view];
@@ -403,6 +411,30 @@ let Calendar = React.createClass({
       components[view] || {},
       omit(components, names)
     )
+
+    // FIXME:
+    // This should be passed as props
+    let displayFilters = {
+      you: ( events ) => {
+        return events.filter( ( e ) => e.userId === me.id );
+      },
+      available: ( events ) => {
+        return events.filter( ( e ) => e.state === 1 ); // YACK!
+      },
+      all: ( events ) => {
+        return events;
+      },
+    };
+
+    currentDayDisplayFilter = currentDayDisplayFilter || displayFilters.all;
+
+    let displayFilterFunc
+
+    if ( view === 'day' ) {
+      displayFilterFunc = currentDayDisplayFilter;
+    } else {
+      displayFilterFunc = displayFilters.you;
+    }
 
     return (
       <div {...elementProps}
@@ -432,7 +464,22 @@ let Calendar = React.createClass({
             me={me}
             others={others}
             isStaff={isStaff}
-            onStaffToggle={this._staffToggle}
+            // onStaffToggle={this._staffToggle}
+            onPickFilterYou={ () => {
+              this.setState( {
+                currentDayDisplayFilter: displayFilters.you,
+              } )
+            } }
+            onPickFilterAvailable={ () => {
+              this.setState( {
+                currentDayDisplayFilter: displayFilters.available,
+              } )
+            } }
+            onPickFilterAll={ () => {
+              this.setState( {
+                currentDayDisplayFilter: displayFilters.all,
+              } )
+            } }
           />
         }
         <View
@@ -442,6 +489,7 @@ let Calendar = React.createClass({
           culture={culture}
           formats={undefined}
           events={events}
+          displayFilterFunc={displayFilterFunc}
           date={current}
           components={viewComponents}
           staffingStatusFunc={staffingStatusFunc}
