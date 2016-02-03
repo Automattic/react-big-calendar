@@ -50,7 +50,8 @@ class EventCard extends Component {
         onMouseUp={onMouseUp}
         className={cn('rbc-event', classNamePostfix, {
           'rbc-selected': isSelected,
-          'rbc-event-overlaps': lastLeftOffset !== 0
+          'rbc-event-overlaps': lastLeftOffset !== 0,
+          'rbc-event-afk': event.state === 0, //FIXME: should be access via a new accessor.
         })}
       >
         <div className='rbc-event-label'>{label}</div>
