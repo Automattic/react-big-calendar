@@ -3,6 +3,7 @@ import * as _ from 'underscore';
 
 import message from './utils/messages';
 import Gravatar from './Gravatar';
+import EventFilterMenu from './EventFilterMenu';
 
 const createGravatar = ( props, key ) => {
   if ( null == props ) {
@@ -26,11 +27,7 @@ const StaffToggle = ( props ) => {
   const { onStaffToggle } = props;
 
   return (
-    <a
-      href='#'
-      onClick={ onStaffToggle }
-    > Show you
-    </a>
+    <EventFilterMenu />
   );
 };
 
