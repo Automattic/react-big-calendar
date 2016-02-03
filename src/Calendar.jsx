@@ -317,11 +317,17 @@ let Calendar = React.createClass({
     /**
      * A list of name/value pair representing a calendar each.
      */
-    calendarList: PropTypes.arrayOf(
-      PropTypes.shape( {
-        name : PropTypes.string,
-        value: PropTypes.number,
-    })),
+    calendarList: PropTypes.shape( {
+      current: PropTypes.shape( { id: PropTypes.number, name: PropTypes.string } ),
+      mine: PropTypes.arrayOf( PropTypes.shape( {
+        id: PropTypes.number,
+        name: PropTypes.string,
+      } ) ),
+      others: PropTypes.arrayOf( PropTypes.shape( {
+        id: PropTypes.number,
+        name: PropTypes.string,
+      } ) ),
+    } ),
 
     /**
      * A flag indicating whether the viewer is a staff of this calendar or not.

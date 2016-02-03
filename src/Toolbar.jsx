@@ -7,9 +7,9 @@ import iconCog from './img/icon-cog.svg';
 import chevronLeft from './img/chevron-left.svg';
 import chevronRight from './img/chevron-right.svg';
 
-const renderCalendarListItem = ( itemData ) => {
+const renderCalendarListItem = ( calendar ) => {
   return (
-      <option key={ itemData.value } value={ itemData.value }> { itemData.name } </option>
+      <li key={ calendar.id } ><a href='#'> { calendar.name } </a></li>
   );
 };
 
@@ -50,33 +50,23 @@ let Toolbar = React.createClass({
           </span>
         </div>
         <div className='rbc-toolbar-tools'>
-          <div className='rbc-toolbar-calendars'>          
-          	{
-	            ( 0 != calendarList.length ) &&
-	              <select className='rbc-toolbar-calendar-list' onChange={onCalendarChange}>
-	                { calendarList.map( renderCalendarListItem ) }
-	              </select>
-	          }
+          <div className='rbc-toolbar-calendars'>
 	          <div className='select-container'>
-	          	<a href='#'>LiveChat</a>
+	          	<a href='#'> { calendarList.current.name }</a>
 	          	<div className='select hidden'>
 	          		<div className='select-calendar-search'>
 	          			<input type='text' placeholder='Search' />
 	          		</div>
 	          		<div className='select-calendar-type'>
 	          			<h5>Your calendars</h5>
-	          			<ul>
-	          				<li><a href='#'>LiveChat</a></li>
-	          				<li><a href='#'>LiveChat UTC+</a></li>
-	          			</ul>
+                  <ul>
+                  { calendarList.mine.map( renderCalendarListItem ) }
+                  </ul>
 	          		</div>
 	          		<div className='select-calendar-type'>
 	          			<h5>Other</h5>
 	          			<ul>
-	          				<li><a href='#'>Other calendar</a></li>
-	          				<li><a href='#'>One more</a></li>
-	          				<li><a href='#'>Lipsum</a></li>
-	          				<li><a href='#'>Another one</a></li>
+                    { calendarList.others.map( renderCalendarListItem ) }
 	          			</ul>
 	          		</div>
 	          	</div>
