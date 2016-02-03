@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Overlay from 'react-overlays/lib/Overlay';
 
 const FilterType = {
   You: 0,
@@ -20,7 +21,7 @@ const FilterMenu = ( props ) => {
   const itemClassName = 'rbc-event-filter-menu-item';
 
   return (
-    <div className='rbc-event-filter-menu'>
+    <div className='rbc-event-filter-menu-content'>
      <button className={itemClassName}>{ typeToText( FilterType.You ) }</button>
      <button className={itemClassName}>{ typeToText( FilterType.Available ) }</button>
      <button className={itemClassName}>{ typeToText( FilterType.All ) }</button>
@@ -38,16 +39,39 @@ class EventFilterMenu extends Component {
   }
 
   render() {
-    const { filterType } = this.state;
+    const { showMenu, filterType } = this.state;
     const text = typeToText( filterType );
 
     return (
-      <a
-        href='#'
-        onClick={ () => {} }
+      <div className='rbc-event-filter-menu'>
+        <a
+          href='#'
+          onClick={ ( event ) => {
+            this.setState( {
+              showMenu: {}
+            } );
+          } }
+        >
+        { text }
+        </a>
+        { showMenu && this._renderMenu() }
+      </div>
+    );
+  }
+
+  _renderMenu() {
+    const { showMenu } = this.state;
+
+    return (
+      <Overlay
+        rootClose
+        placement='bottom'
+        container={ this }
+        show={ null != showMenu }
+        onHide={ () => this.setState( { showMenu: null } ) }
       >
-      { text }
-      </a>
+        <FilterMenu />
+      </Overlay>
     );
   }
 };
