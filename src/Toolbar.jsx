@@ -9,7 +9,9 @@ import chevronRight from './img/chevron-right.svg';
 
 const renderCalendarListItem = ( calendar ) => {
   return (
-      <li key={ calendar.id } ><a href='#'> { calendar.name } </a></li>
+      <li key={ calendar.id } >
+        <a href='#'> { calendar.name } </a>
+      </li>
   );
 };
 
@@ -32,6 +34,12 @@ const JoinButton = ( props ) => {
 
 let Toolbar = React.createClass({
 
+  getInitialState() {
+    return {
+      showCalendarList: false,
+    }
+  },
+
   render() {
     let {
         messages, label
@@ -39,6 +47,12 @@ let Toolbar = React.createClass({
       , isStaff
       , calendarList, onCalendarChange, onClickJoin
       , onClickLeave } = this.props;
+
+    const {
+      showCalendarList,
+    } = this.state;
+
+    const selectClassName = 'select' + ( showCalendarList ? '' : ' hidden' );
 
     messages = message(messages)
 
@@ -52,8 +66,8 @@ let Toolbar = React.createClass({
         <div className='rbc-toolbar-tools'>
           <div className='rbc-toolbar-calendars'>
 	          <div className='select-container'>
-	          	<a href='#'> { calendarList.current.name }</a>
-	          	<div className='select hidden'>
+	          	<a href='#' onClick={ this._onClickCalendarList }> { calendarList.current.name }</a>
+	          	<div className={ selectClassName }>
 	          		<div className='select-calendar-search'>
 	          			<input type='text' placeholder='Search' />
 	          		</div>
@@ -143,6 +157,12 @@ let Toolbar = React.createClass({
 
   view(view){
     this.props.onViewChange(view)
+  },
+
+  _onClickCalendarList( event ) {
+    this.setState( {
+      showCalendarList: ! this.state.showCalendarList,
+    } )
   }
 });
 
