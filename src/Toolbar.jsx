@@ -39,7 +39,7 @@ const calendarListItem = ( onCalendarChange, hideCalendarList ) => {
 
     return (
         <li key={ calendar.id } >
-          <Calendar calendarId={ calendar.id } />
+          <CalendarColorLabel calendarId={ calendar.id } />
           <a href='#' onClick={ onClick }> { calendar.name } </a>
         </li>
     );
