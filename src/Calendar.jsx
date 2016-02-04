@@ -103,15 +103,6 @@ let Calendar = React.createClass({
     onSelectEvent: PropTypes.func,
 
     /**
-     * Callback fired when the staff toggle button is clicked.
-     *
-     * ```js
-     * function(event: object)
-     * ```
-     */
-    onStaffToggle: PropTypes.func,
-
-    /**
      * An array of built-in view names to allow the calendar to display.
      *
      * @type Calendar.views
@@ -470,7 +461,6 @@ let Calendar = React.createClass({
             me={me}
             others={others}
             isStaff={isStaff}
-            // onStaffToggle={this._staffToggle}
             onPickFilterYou={ () => {
               this.setState( {
                 currentDayDisplayFilter: displayFilters.you,
@@ -549,10 +539,6 @@ let Calendar = React.createClass({
       this._view(views.day)
 
     this._navigate(navigate.DATE, date)
-  },
-
-  _staffToggle(event) {
-    notify( this.props.onStaffToggle, event );
   },
 
   _clickJoin(event) {
