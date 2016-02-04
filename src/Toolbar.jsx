@@ -7,6 +7,26 @@ import iconCog from './img/icon-cog.svg';
 import chevronLeft from './img/chevron-left.svg';
 import chevronRight from './img/chevron-right.svg';
 
+// FIXME:
+// Duplicated code here and EventCard.
+const toCalendarColorLabelName = ( calendarId ) => {
+  return 'calendar-color-' + ( calendarId % 8 );
+};
+
+const CalendarColorLabel = ( props ) => {
+  const {
+    calendarId,
+  } = props;
+
+  const colorLabelName = toCalendarColorLabelName( calendarId );
+
+  return (
+    <span
+      className={ cn( 'rbc-calendar-color-label', colorLabelName ) }
+    />
+  );
+};
+
 const calendarListItem = ( onCalendarChange, hideCalendarList ) => {
   return ( calendar ) => {
     const onClick = ( event ) => {
@@ -19,6 +39,7 @@ const calendarListItem = ( onCalendarChange, hideCalendarList ) => {
 
     return (
         <li key={ calendar.id } >
+          <Calendar calendarId={ calendar.id } />
           <a href='#' onClick={ onClick }> { calendar.name } </a>
         </li>
     );
@@ -40,7 +61,6 @@ const JoinButton = ( props ) => {
       </button>
   );
 };
-
 
 let Toolbar = React.createClass({
 
@@ -84,6 +104,7 @@ let Toolbar = React.createClass({
         <div className='rbc-toolbar-tools'>
           <div className='rbc-toolbar-calendars'>
 	          <div className='select-container'>
+              <CalendarColorLabel calendarId={ calendarList.current.id } />
 	          	<a href='#' onClick={ this._onClickCalendarList }> { calendarList.current.name }</a>
 	          	<div className={ selectClassName }>
 	          		<div className='select-calendar-search'>
