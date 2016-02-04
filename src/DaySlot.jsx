@@ -12,6 +12,7 @@ import { accessor } from './utils/propTypes';
 import { accessor as get } from './utils/accessors';
 
 import EventCard from './EventCard';
+import EventDialog from './EventDialog';
 import TimeSlot from './TimeSlot';
 import NowIndicator from './NowIndicator';
 
