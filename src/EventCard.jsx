@@ -41,6 +41,9 @@ class EventCard extends Component {
 
     const EventComponent = eventComponent;
 
+    // FIXME: should be access via a new accessor.
+    const calendarColorName = 'calendar-color-' + ( event.calendarId % 8 );
+
     return connectDragSource(
       <div
         style={style}
@@ -48,7 +51,7 @@ class EventCard extends Component {
         onClick={onClick}
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
-        className={cn('rbc-event', classNamePostfix, {
+        className={cn('rbc-event', calendarColorName, classNamePostfix, {
           'rbc-selected': isSelected,
           'rbc-event-overlaps': lastLeftOffset !== 0,
           'rbc-event-afk': event.state === 0, //FIXME: should be access via a new accessor.
