@@ -26,7 +26,7 @@ const FilterMenu = ( props ) => {
   const itemClassName = 'rbc-event-filter-menu-item';
 
   return (
-    <div className='rbc-event-filter-menu-content'
+    <div className='rbc-event-filter-menu-content dropdown dropdown-right'
       style={ {
         position: 'absolute',
         zIndex: 999,
@@ -55,7 +55,7 @@ class EventFilterMenu extends Component {
     const text = typeToText( filterType );
 
     return (
-      <div className='rbc-event-filter-menu'>
+      <div className='rbc-event-filter-menu dropdown-container dropdown-arrow'>
         <a
           href='#'
           onClick={ ( event ) => {
