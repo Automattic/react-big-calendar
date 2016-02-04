@@ -9,7 +9,6 @@ const NowIndicator = ( props ) => {
       style={ {
         width: '100%',
         height: '2px',
-        backgroundColor: 'red',
         position: 'absolute',
         top: topOffset + '%',
         zIndex: 999,

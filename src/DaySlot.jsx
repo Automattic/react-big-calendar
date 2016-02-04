@@ -69,11 +69,17 @@ let DaySlot = React.createClass({
 
   componentDidMount() {
     this.props.selectable
-      && this._selectable()
+      && this._selectable();
+
+    this._updateNowIntervalId = setInterval( () => {
+      this.setState( {} ); // FIXME: is there any better way to trigger an view update?
+    }, 600000 ); // update at every 10 mins;
   },
 
   componentWillUnmount() {
     this._teardownSelectable();
+
+    clearInterval( this._updateNowIntervalId );
   },
 
   componentWillReceiveProps(nextProps) {
@@ -119,7 +125,11 @@ let DaySlot = React.createClass({
       end: this.state.endDate
     };
 
-    let nowPosProportion = ( positionFromDate( new Date(), min, step ) / totalMin ) * 100;
+    // Only show NowIndicator for the current day.
+    const now = new Date();
+    const currentBeginOfDay = dates.startOf( now, 'day' );
+    const showNowIndicator = currentBeginOfDay.getTime() === min.getTime();
+    const nowPosProportion = ( positionFromDate( now, min, step ) / totalMin ) * 100;
 
     return (
       <div {...props} className={cn('rbc-day-slot', props.className)}>
@@ -133,7 +143,10 @@ let DaySlot = React.createClass({
               </span>
             </div>
         }
-        <NowIndicator topOffset={nowPosProportion} />
+        {
+          showNowIndicator &&
+          <NowIndicator topOffset={nowPosProportion} />
+        }
       </div>
     );
   },
