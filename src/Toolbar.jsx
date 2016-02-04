@@ -7,12 +7,22 @@ import iconCog from './img/icon-cog.svg';
 import chevronLeft from './img/chevron-left.svg';
 import chevronRight from './img/chevron-right.svg';
 
-const renderCalendarListItem = ( calendar ) => {
-  return (
-      <li key={ calendar.id } >
-        <a href='#'> { calendar.name } </a>
-      </li>
-  );
+const calendarListItem = ( onCalendarChange, hideCalendarList ) => {
+  return ( calendar ) => {
+    const onClick = ( event ) => {
+      onCalendarChange( calendar.id );
+      hideCalendarList();
+
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    return (
+        <li key={ calendar.id } >
+          <a href='#' onClick={ onClick }> { calendar.name } </a>
+        </li>
+    );
+  };
 };
 
 const JoinButton = ( props ) => {
@@ -54,7 +64,15 @@ let Toolbar = React.createClass({
 
     const selectClassName = 'select' + ( showCalendarList ? '' : ' hidden' );
 
-    messages = message(messages)
+    const hideCalendarList = () => {
+      this.setState( {
+        showCalendarList: false,
+      } );
+    };
+
+    const renderCalendarListItem = calendarListItem( onCalendarChange, hideCalendarList );
+
+    messages = message(messages);
 
     return (
       <div className='rbc-toolbar'>
