@@ -13,6 +13,7 @@ import { accessor as get } from './utils/accessors';
 
 import EventCard from './EventCard';
 import TimeSlot from './TimeSlot';
+import NowIndicator from './NowIndicator';
 
 function snapToSlot(date, step){
   var roundTo = 1000 * 60 * step;
@@ -118,6 +119,8 @@ let DaySlot = React.createClass({
       end: this.state.endDate
     };
 
+    let nowPosProportion = ( positionFromDate( new Date(), min, step ) / totalMin ) * 100;
+
     return (
       <div {...props} className={cn('rbc-day-slot', props.className)}>
         { children }
@@ -130,6 +133,7 @@ let DaySlot = React.createClass({
               </span>
             </div>
         }
+        <NowIndicator topOffset={nowPosProportion} />
       </div>
     );
   },

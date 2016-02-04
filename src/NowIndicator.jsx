@@ -1,6 +1,8 @@
 import React from 'react';
 
 const NowIndicator = ( props ) => {
+  const { topOffset } = props;
+
   return (
     <div
       className='rbc-now-indicator'
@@ -9,6 +11,7 @@ const NowIndicator = ( props ) => {
         height: '2px',
         backgroundColor: 'red',
         position: 'absolute',
+        top: topOffset + '%',
         zIndex: 999,
       } }
     />
