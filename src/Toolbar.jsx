@@ -39,8 +39,10 @@ const calendarListItem = ( onCalendarChange, hideCalendarList ) => {
 
     return (
         <li key={ calendar.id } >
-          <CalendarColorLabel calendarId={ calendar.id } />
-          <a href='#' onClick={ onClick }> { calendar.name } </a>
+          <a href='#' onClick={ onClick }>
+            <CalendarColorLabel calendarId={ calendar.id } />
+            { calendar.name }
+          </a>
         </li>
     );
   };
@@ -104,8 +106,10 @@ let Toolbar = React.createClass({
         <div className='rbc-toolbar-tools'>
           <div className='rbc-toolbar-calendars'>
 	          <div className='select-container'>
-              <CalendarColorLabel calendarId={ calendarList.current.id } />
-	          	<a href='#' onClick={ this._onClickCalendarList }> { calendarList.current.name }</a>
+	          	<a href='#' onClick={ this._onClickCalendarList }>
+                <CalendarColorLabel calendarId={ calendarList.current.id } />
+                { calendarList.current.name }
+              </a>
 	          	<div className={ selectClassName }>
 	          		<div className='select-calendar-search'>
 	          			<input type='text' placeholder='Search' />
