@@ -60,33 +60,25 @@ class EventDialog extends Component {
     };
 
     return(
-        <div
-          className='rbc-event-popup-dialog'
-          style={ {
-            position: 'absolute',
-            top: '20px',
-            left: '10px',
-          } }
-        >
+        <div className='rbc-event-popup-dialog'>
           <h5>{calendarName}</h5>
           <p>{dateText}</p>
           <p>{timeRangeText}</p>
           <ul>
             <li>
-              <input type='radio' name='state' value='available' checked={ 1 === state }
+              <input type='radio' id='available' name='state' value='available' checked={ 1 === state }
                 onChange={onChangeToAvailable}
               />
-              <span>Avaliable</span>
+              <label htmlFor='available'>Available</label>
             </li>
             <li>
-              <input type='radio' name='state' value='afk' checked={ 0 === state }
+              <input type='radio' id='unavailable' name='state' value='afk' checked={ 0 === state }
                 onChange={onChangeToUnavailable}
               />
-              <span>Unavailable</span>
+              <label htmlFor='unavailable'>Unavailable</label>
             </li>
-          <hr />
-          <a href='#' onClick={onClickDelete}>Delete</a>
           </ul>
+          <a href='#' className="link-highlight" onClick={onClickDelete}>Delete</a>
         </div>
     );
   }
