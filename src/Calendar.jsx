@@ -354,6 +354,12 @@ let Calendar = React.createClass({
      *
      */
     onEventEditing: PropTypes.func,
+
+    /**
+     * Callback fired when a user finished editing an event via EventDialog
+     *
+     */
+    onEventEdited: PropTypes.func,
   },
 
   getDefaultProps() {
@@ -502,6 +508,7 @@ let Calendar = React.createClass({
           onShowMore={this._showMore}
           onDropEventCard={this._dropEventCard}
           onEventEditing={this._eventEditing}
+          onEventEdited={this._eventEdited}
         />
       </div>
     );
@@ -566,6 +573,10 @@ let Calendar = React.createClass({
 
   _eventEditing(event) {
     notify( this.props.onEventEditing, event );
+  },
+
+  _eventEdited(event) {
+    notify( this.props.onEventEdited, event );
   },
 });
 

@@ -91,6 +91,7 @@ class EventCard extends Component {
     const {
       event,
       onEventEditing,
+      onEventEdited,
     } = this.props;
 
     const {
@@ -119,6 +120,7 @@ class EventCard extends Component {
             endTime={ end }
             state={ state }
             onEventEditing={ onEventEditing }
+            onEventEdited={ onEventEdited }
           />
         </Overlay>
     );
