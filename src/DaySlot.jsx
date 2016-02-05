@@ -234,7 +234,8 @@ let DaySlot = React.createClass({
       top: top + '%',
       height: bottom - top + '%',
       [isRtl ? 'right' : 'left']: per + '%',
-      width: (leftOffset === 0 ? (100 - eventOffset) : (100 - per) - rightDiff) + '%'
+      width: (leftOffset === 0 ? (100 - eventOffset) : (100 - per) - rightDiff) + '%',
+      overflow: 'visible',
     }
   },
 
