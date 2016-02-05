@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import Overlay from 'react-overlays/lib/Overlay';
 import cn from 'classnames';
 import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from './Constants';
+import EventDialog from './EventDialog';
 
 const eventCardDragSource = {
   beginDrag( props ) {
@@ -22,6 +24,14 @@ function collect( connect, monitor ) {
 }
 
 class EventCard extends Component {
+  constructor( props ) {
+    super( props );
+
+    this.state = {
+      showDialog: false,
+    }
+  }
+
   render() {
     const {
       style,
@@ -39,6 +49,10 @@ class EventCard extends Component {
       event,
     } = this.props;
 
+    const {
+      showDialog,
+    } = this.state;
+
     const EventComponent = eventComponent;
 
     // FIXME: should be access via a new accessor.
@@ -48,7 +62,11 @@ class EventCard extends Component {
       <div
         style={style}
         title={label + ': ' + title }
-        onClick={onClick}
+        onClick={ ( event ) => {
+          this.setState( {
+            showDialog: true,
+          } )
+        } }
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
         className={cn('rbc-event', calendarColorName, classNamePostfix, {
@@ -64,7 +82,45 @@ class EventCard extends Component {
             : title
           }
         </div>
+        { showDialog && this._renderDialog() }
       </div>
+    );
+  }
+
+  _renderDialog() {
+    const {
+      event,
+      onEventEditing,
+    } = this.props;
+
+    const {
+      showDialog,
+    } = this.state;
+
+    const {
+      calendarName,
+      start,
+      end,
+      state,
+    } = event;
+
+    return (
+        <Overlay
+          rootClose
+          placement='right'
+          container={ this }
+          show={ showDialog }
+          onHide={ () => this.setState( { showDialog: false } ) }
+        >
+          <EventDialog
+            event={ event }
+            calendarName={ calendarName }
+            startTime={ start }
+            endTime={ end }
+            state={ state }
+            onEventEditing={ onEventEditing }
+          />
+        </Overlay>
     );
   }
 }

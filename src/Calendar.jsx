@@ -348,6 +348,12 @@ let Calendar = React.createClass({
      * A function for computing staffing status given a Date object.
      */
     staffingStatusFunc: PropTypes.func,
+
+    /**
+     * Callback fired when edit an event via EventDialog
+     *
+     */
+    onEventEditing: PropTypes.func,
   },
 
   getDefaultProps() {
@@ -495,6 +501,7 @@ let Calendar = React.createClass({
           onSelectSlot={this._selectSlot}
           onShowMore={this._showMore}
           onDropEventCard={this._dropEventCard}
+          onEventEditing={this._eventEditing}
         />
       </div>
     );
@@ -555,6 +562,10 @@ let Calendar = React.createClass({
 
   _dropEventCard(event) {
     notify( this.props.onDropEventCard, event );
+  },
+
+  _eventEditing(event) {
+    notify( this.props.onEventEditing, event );
   },
 });
 

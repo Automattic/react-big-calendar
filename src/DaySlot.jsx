@@ -156,7 +156,7 @@ let DaySlot = React.createClass({
     let {
         events, step, min, culture, eventPropGetter
       , selected, eventTimeRangeFormat, eventComponent
-      , displayFilterFunc
+      , displayFilterFunc, onEventEditing
       , startAccessor, endAccessor, titleAccessor } = this.props;
 
     let lastLeftOffset = 0;
@@ -208,6 +208,7 @@ let DaySlot = React.createClass({
           onClick={this._select.bind(null, event)}
           onMouseDown={pauseSelector()}
           onMouseUp={resumeSelector()}
+          onEventEditing={onEventEditing}
           classNamePostfix={className}
           eventComponent={eventComponent}
           label={label}
