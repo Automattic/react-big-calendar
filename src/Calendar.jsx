@@ -45,6 +45,7 @@ let now = new Date();
 const staffShape = PropTypes.shape( {
   email: PropTypes.string,
   name: PropTypes.string,
+  id: PropTypes.number,
 } );
 
 let Calendar = React.createClass({
