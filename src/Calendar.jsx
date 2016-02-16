@@ -32,6 +32,30 @@ function isValidView(view, { views: _views }) {
 
 let now = new Date();
 
+const computeStaffLayout = ( me, others ) => {
+  const meWidth = 100;
+  const cellWidth = 34;
+
+  const base = {
+    cellWidths: [ meWidth ],
+    idToIndex : {
+      [ me.id ] : 0,
+    }
+  };
+
+  const result = others.reduce(
+      ( base, staff, index ) => {
+        base.cellWidths.push( cellWidth );
+        base.idToIndex[ staff.id ] = base.cellWidths.length - 1;
+
+        return base;
+      },
+      base
+  );
+
+  return result;
+};
+
 /**
  * react-big-calendar is full featured Calendar component for managing events and dates. It uses
  * modern `flexbox` for layout making it super responsive and performant. Leaving most of the layout heavy lifting
@@ -444,6 +468,8 @@ let Calendar = React.createClass({
     } else {
       displayFilterFunc = displayFilters.you;
     }
+
+    const staffLayout = computeStaffLayout( me, others );
 
     return (
       <div {...elementProps}
