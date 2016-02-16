@@ -5,15 +5,17 @@ import message from './utils/messages';
 import Gravatar from './Gravatar';
 import EventFilterMenu from './EventFilterMenu';
 
-const createGravatar = ( props, key ) => {
-  if ( null == props ) {
-    return null;
-  }
-
-  const { email, size, defaultImage } = props;
+const createGravatar = ( [ staff, cellWidth, cellPos ], key ) => {
+  const { email, size, defaultImage } = staff;
 
   return (
-    <span className='rbc-staffbar-staffs-staff' key={ key }>
+    <span className='rbc-staffbar-staffs-staff' key={ key }
+      style={ {
+        position: 'absolute',
+        left: cellPos,
+        width: cellWidth,
+      } }
+    >
       <Gravatar
         email={ email }
         size={ size }
@@ -23,11 +25,27 @@ const createGravatar = ( props, key ) => {
   );
 };
 
+const staffsToGravatars = ( staffs, staffLayout ) => {
+  const {
+    cellWidths,
+    cellPos,
+  } = staffLayout;
+
+  const staffAndLayout = _.zip( staffs, cellWidths, cellPos );
+
+  return (
+    <span className='rbc-staffbar-staffs'>
+      { _.map( staffAndLayout, createGravatar ) }
+    </span>
+  );
+};
+
 const Staffbar = ( props ) => {
   const {
     me,
     isStaff,
     others,
+    staffLayout,
     onStaffToggle,
     onPickFilterYou,
     onPickFilterAvailable,
@@ -36,15 +54,7 @@ const Staffbar = ( props ) => {
 
   return (
     <div className='rbc-staffbar'>
-      {
-        isStaff &&
-        <span className='rbc-staffbar-me'>
-          { createGravatar( me, others.length ) }
-        </span>
-      }
-      <span className='rbc-staffbar-staffs'>
-        { _.map( others, createGravatar ) }
-      </span>
+      { staffsToGravatars( [ me, ...others ], staffLayout ) }
       <span className='rbc-staffbar-buttons'>
         <EventFilterMenu
           onPickFilterYou={ onPickFilterYou }

@@ -33,11 +33,12 @@ function isValidView(view, { views: _views }) {
 let now = new Date();
 
 const computeStaffLayout = ( me, others ) => {
-  const meWidth = 100;
-  const cellWidth = 34;
+  const meWidth = 180;
+  const cellWidth = 36;
 
   const base = {
     cellWidths: [ meWidth ],
+    cellPos   : [ 0 ],
     idToIndex : {
       [ me.id ] : 0,
     }
@@ -45,8 +46,13 @@ const computeStaffLayout = ( me, others ) => {
 
   const result = others.reduce(
       ( base, staff, index ) => {
+        const nCells = base.cellWidths.length;
+        const prevWidth = base.cellWidths[ nCells - 1 ];
+        const prevPos   = base.cellPos[ nCells - 1 ];
+
+        base.idToIndex[ staff.id ] = nCells;
+        base.cellPos.push( prevPos + prevWidth );
         base.cellWidths.push( cellWidth );
-        base.idToIndex[ staff.id ] = base.cellWidths.length - 1;
 
         return base;
       },
@@ -499,6 +505,7 @@ let Calendar = React.createClass({
             me={me}
             others={others}
             isStaff={isStaff}
+            staffLayout={staffLayout}
             onPickFilterYou={ () => {
               this.setState( {
                 currentDayDisplayFilter: displayFilters.you,
