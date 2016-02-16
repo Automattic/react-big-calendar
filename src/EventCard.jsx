@@ -68,8 +68,9 @@ class EventCard extends Component {
         style={style}
         title={label + ': ' + title }
         onClick={ ( event ) => {
+          const toggledShowDialog = ! showDialog;
           this.setState( {
-            showDialog: true,
+            showDialog: toggledShowDialog,
           } )
         } }
         onMouseDown={onMouseDown}
