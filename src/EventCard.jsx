@@ -7,6 +7,10 @@ import { ItemTypes } from './Constants';
 import EventDialog from './EventDialog';
 
 const eventCardDragSource = {
+  canDrag( props ) {
+    return props.ownedByCurrentUser;
+  },
+
   beginDrag( props ) {
     const event = props.event;
 
