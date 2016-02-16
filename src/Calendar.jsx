@@ -527,6 +527,7 @@ let Calendar = React.createClass({
           ref='view'
           {...props}
           {...formats}
+          me={me} // FIXME: this name is bad. currentUser is better.
           culture={culture}
           formats={undefined}
           events={events}

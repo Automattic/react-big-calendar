@@ -41,6 +41,7 @@ class EventCard extends Component {
       onMouseUp,
       classNamePostfix,
       label,
+      ownedByCurrentUser,
       eventComponent,
       isSelected,
       lastLeftOffset,
@@ -75,7 +76,7 @@ class EventCard extends Component {
           'rbc-event-afk': event.state === 0, //FIXME: should be access via a new accessor.
         })}
       >
-        <div className='rbc-event-label'>{label}</div>
+        { ownedByCurrentUser && <div className='rbc-event-label'>{label}</div> }
         <div className='rbc-event-content'>
           { EventComponent
             ? <EventComponent event={event} title={title}/>
@@ -108,6 +109,7 @@ class EventCard extends Component {
         >
           <EventDialog
             event={ event }
+            ownedByCurrentUser={ ownedByCurrentUser }
             onEventEditing={ onEventEditing }
             onEventEdited={ onEventEdited }
           />

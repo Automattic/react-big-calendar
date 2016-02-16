@@ -155,7 +155,7 @@ let DaySlot = React.createClass({
 
   renderEvents(numSlots, totalMin, staffLayout) {
     let {
-        events, step, min, culture, eventPropGetter
+        me, events, step, min, culture, eventPropGetter
       , selected, eventTimeRangeFormat, eventComponent
       , displayFilterFunc, onEventEditing, onEventEdited
       , startAccessor, endAccessor, titleAccessor } = this.props;
@@ -229,6 +229,7 @@ let DaySlot = React.createClass({
           classNamePostfix={className}
           eventComponent={eventComponent}
           label={label}
+          ownedByCurrentUser={event.userId === me.id }
           event={event}
         />
       );
