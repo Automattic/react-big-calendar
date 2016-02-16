@@ -98,13 +98,6 @@ class EventCard extends Component {
       showDialog,
     } = this.state;
 
-    const {
-      calendarName,
-      start,
-      end,
-      state,
-    } = event;
-
     return (
         <Overlay
           rootClose
@@ -115,10 +108,6 @@ class EventCard extends Component {
         >
           <EventDialog
             event={ event }
-            calendarName={ calendarName }
-            startTime={ start }
-            endTime={ end }
-            state={ state }
             onEventEditing={ onEventEditing }
             onEventEdited={ onEventEdited }
           />

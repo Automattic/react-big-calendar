@@ -17,8 +17,8 @@ class EventDialog extends Component {
 
   componentWillUnmount() {
     const {
-      onEventEdited,
       event,
+      onEventEdited,
     } = this.props;
 
     const finishedEvent = editEvent( 'finished', null, event );
@@ -33,13 +33,13 @@ class EventDialog extends Component {
 
     const {
       calendarName,
-      startTime,
-      endTime,
+      start,
+      end,
       state,
     } = event;
 
-    const dateText = moment( startTime ).format( 'll' );
-    const timeRangeText = toTimeText( startTime ) + ' to ' + toTimeText( endTime );
+    const dateText = moment( start ).format( 'll' );
+    const timeRangeText = toTimeText( start ) + ' to ' + toTimeText( end );
 
     const onClickDelete = ( domEvent ) => {
       const deleteEvent = editEvent( 'delete', null, event );
