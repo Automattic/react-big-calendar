@@ -35,10 +35,6 @@ const StaffingStatus = ( props ) => {
   return (
       <div
         className={cn('staffing-status')}
-        style={ {
-          //height: '20px',
-          //width: '32px',
-        } }
       >
         { text }
       </div>
