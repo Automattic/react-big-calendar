@@ -11,7 +11,6 @@ const createGravatar = ( [ staff, cellWidth, cellPos ], key ) => {
   return (
     <span className='rbc-staffbar-staffs-staff' key={ key }
       style={ {
-        position: 'absolute',
         left: cellPos,
         width: cellWidth,
       } }
