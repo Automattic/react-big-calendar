@@ -530,6 +530,7 @@ let Calendar = React.createClass({
           culture={culture}
           formats={undefined}
           events={events}
+          staffLayout={staffLayout}
           displayFilterFunc={displayFilterFunc}
           date={current}
           components={viewComponents}

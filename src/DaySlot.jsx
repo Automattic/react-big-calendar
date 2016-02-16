@@ -95,6 +95,7 @@ let DaySlot = React.createClass({
         min, max, step, start, end
       , selectRangeFormat, culture
       , staffingStatusFunc
+      , staffLayout
       , onDropEventCard
       , ...props } = this.props;
 
@@ -135,7 +136,7 @@ let DaySlot = React.createClass({
     return (
       <div {...props} className={cn('rbc-day-slot', props.className)}>
         { children }
-        { this.renderEvents(numSlots, totalMin) }
+        { this.renderEvents(numSlots, totalMin, staffLayout) }
         {
           selecting &&
             <div className='rbc-slot-selection' style={style}>
@@ -152,12 +153,18 @@ let DaySlot = React.createClass({
     );
   },
 
-  renderEvents(numSlots, totalMin) {
+  renderEvents(numSlots, totalMin, staffLayout) {
     let {
         events, step, min, culture, eventPropGetter
       , selected, eventTimeRangeFormat, eventComponent
       , displayFilterFunc, onEventEditing, onEventEdited
       , startAccessor, endAccessor, titleAccessor } = this.props;
+
+    const {
+      cellWidths,
+      cellPos,
+      idToIndex,
+    } = staffLayout;
 
     let lastLeftOffset = 0;
 
@@ -200,10 +207,19 @@ let DaySlot = React.createClass({
         }
       }
 
+      const eventCellIndex = idToIndex[ event.userId ];
+      const eventWidth = cellWidths[ eventCellIndex ] - 1; // to leave a small spacing between EventCards.
+      const eventPos = cellPos[ eventCellIndex ];
+
+      const alignToStaffStyle = {
+        left: eventPos,
+        width: eventWidth,
+      }
+
       return (
         <EventCard
           key={'evt_' + idx}
-          style={{...xStyle, ...style}}
+          style={{...xStyle, ...style, ...alignToStaffStyle }}
           title={title}
           onClick={this._select.bind(null, event)}
           onMouseDown={pauseSelector()}
