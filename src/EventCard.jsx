@@ -91,6 +91,7 @@ class EventCard extends Component {
   _renderDialog() {
     const {
       event,
+      ownedByCurrentUser,
       onEventEditing,
       onEventEdited,
     } = this.props;

@@ -28,6 +28,7 @@ class EventDialog extends Component {
   render() {
     const {
       event,
+      ownedByCurrentUser,
       onEventEditing,
     } = this.props;
 
@@ -64,21 +65,24 @@ class EventDialog extends Component {
           <h5>{calendarName}</h5>
           <p>{dateText}</p>
           <p>{timeRangeText}</p>
-          <ul>
-            <li>
-              <input type='radio' id='available' name='state' value='available' checked={ 1 === state }
-                onChange={onChangeToAvailable}
-              />
-              <label htmlFor='available'>Available</label>
-            </li>
-            <li>
-              <input type='radio' id='unavailable' name='state' value='afk' checked={ 0 === state }
-                onChange={onChangeToUnavailable}
-              />
-              <label htmlFor='unavailable'>Unavailable</label>
-            </li>
-          </ul>
-          <a href='#' className="link-highlight" onClick={onClickDelete}>Delete</a>
+          {
+            ownedByCurrentUser &&
+            <ul>
+              <li>
+                <input type='radio' id='available' name='state' value='available' checked={ 1 === state }
+                  onChange={onChangeToAvailable}
+                />
+                <label htmlFor='available'>Available</label>
+              </li>
+              <li>
+                <input type='radio' id='unavailable' name='state' value='afk' checked={ 0 === state }
+                  onChange={onChangeToUnavailable}
+                />
+                <label htmlFor='unavailable'>Unavailable</label>
+              </li>
+            </ul>
+          }
+          { ownedByCurrentUser && <a href='#' className="link-highlight" onClick={onClickDelete}>Delete</a> }
         </div>
     );
   }
