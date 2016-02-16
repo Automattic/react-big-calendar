@@ -41,6 +41,12 @@ let now = new Date();
  * the most sense to your app. It also tries not to be prescriptive about your event data structures, just tell it
  * how to find the start and end datetimes and you can pass it whatever you want.
  */
+
+const staffShape = PropTypes.shape( {
+  email: PropTypes.string,
+  name: PropTypes.string,
+} );
+
 let Calendar = React.createClass({
 
   propTypes: {
@@ -295,16 +301,9 @@ let Calendar = React.createClass({
     // southp:
     // Properties from us go here
     //
-    me: PropTypes.shape( {
-      email: PropTypes.string,
-      name: PropTypes.string,
-    } ),
+    me: staffShape,
 
-    others: PropTypes.arrayOf( PropTypes.shape( {
-      email: PropTypes.string,
-      name: PropTypes.string,
-    } ) ),
-
+    others: PropTypes.arrayOf( staffShape ),
     /**
      * A list of name/value pair representing a calendar each.
      */
