@@ -103,6 +103,19 @@ let DaySlot = React.createClass({
     let numSlots = Math.ceil(totalMin / step);
     let children = [];
 
+    // Here is a trick. Normally, _selector.resume() should be called
+    // by the event handler of onMouseUp event of EventCard. However,
+    // if users d&d a EventCard to somewhere illegal, it will be popped back
+    // and the onMouseUp event won't be triggered. So we need to
+    // ensure _selector.resume() is definitely called after dropping here.
+    const wrappedOnDropEventCard = ( arg ) => {
+        if ( this._selector ) {
+          this._selector.resume();
+        }
+
+        onDropEventCard( arg );
+    };
+
     for (var i = 0; i < numSlots; i++) {
       const slotDate = dates.add( min, step * i, 'minutes' );
       const staffingStatus = staffingStatusFunc( slotDate );
@@ -112,7 +125,7 @@ let DaySlot = React.createClass({
           key={i}
           staffingStatus={staffingStatus}
           date={slotDate}
-          onDropEventCard={onDropEventCard}
+          onDropEventCard={wrappedOnDropEventCard}
         />
       );
     }
