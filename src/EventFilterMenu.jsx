@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import Overlay from 'react-overlays/lib/Overlay';
 
-const FilterType = {
-  You: 0,
-  Available: 1,
-  All: 2,
-};
+import EventFilterMode from './EventFilterMode';
 
 const FilterText = {
-  [ FilterType.You ]: 'Show you',
-  [ FilterType.Available ]: 'Show available',
-  [ FilterType.All ]: 'Show all',
+  [ EventFilterMode.CurrentUserOnly ]: 'Show you',
+  [ EventFilterMode.Available ]: 'Show available',
+  [ EventFilterMode.All ]: 'Show all',
 };
 
 const typeToText = ( type ) => {
@@ -19,7 +15,7 @@ const typeToText = ( type ) => {
 
 const FilterMenu = ( props ) => {
   const {
-    onClickYou,
+    onClickCurrentUserOnly,
     onClickAvailable,
     onClickAll,
   } = props;
@@ -33,9 +29,9 @@ const FilterMenu = ( props ) => {
       } }
     >
     <ul>
-      <li><a href='#' className={itemClassName} onClick={onClickYou}> { typeToText( FilterType.You ) } </a></li>
-      <li><a href='#' className={itemClassName} onClick={onClickAvailable}> { typeToText( FilterType.Available ) } </a></li>
-      <li><a href='#' className={itemClassName} onClick={onClickAll}> { typeToText( FilterType.All ) } </a></li>
+      <li><a href='#' className={itemClassName} onClick={onClickCurrentUserOnly}> { typeToText( EventFilterMode.CurrentUserOnly ) } </a></li>
+      <li><a href='#' className={itemClassName} onClick={onClickAvailable}> { typeToText( EventFilterMode.Available ) } </a></li>
+      <li><a href='#' className={itemClassName} onClick={onClickAll}> { typeToText( EventFilterMode.All ) } </a></li>
     </ul>
     </div>
   );
@@ -46,7 +42,7 @@ class EventFilterMenu extends Component {
     super( props );
 
     this.state = {
-      filterType: FilterType.You,
+      filterType: EventFilterMode.CurrentUserOnly,
       showMenu: false,
     };
   }
@@ -76,7 +72,7 @@ class EventFilterMenu extends Component {
   _renderMenu() {
     const { showMenu } = this.state;
     const {
-      onPickFilterYou,
+      onPickFilterCurrentUserOnly,
       onPickFilterAvailable,
       onPickFilterAll,
     } = this.props;
@@ -96,11 +92,11 @@ class EventFilterMenu extends Component {
         onHide={ () => {} }
       >
         <FilterMenu
-          onClickYou = { ( event ) => {
-            onPickFilterYou && onPickFilterYou();
+          onClickCurrentUserOnly = { ( event ) => {
+            onPickFilterCurrentUserOnly && onPickFilterCurrentUserOnly();
 
             this.setState( {
-              filterType: FilterType.You,
+              filterType: EventFilterMode.CurrentUserOnly,
             } )
 
             dismiss();
@@ -109,7 +105,7 @@ class EventFilterMenu extends Component {
             onPickFilterAvailable && onPickFilterAvailable();
 
             this.setState( {
-              filterType: FilterType.Available,
+              filterType: EventFilterMode.Available,
             } )
 
             dismiss();
@@ -118,7 +114,7 @@ class EventFilterMenu extends Component {
             onPickFilterAll && onPickFilterAll();
 
             this.setState( {
-              filterType: FilterType.All,
+              filterType: EventFilterMode.All,
             } )
 
             dismiss();

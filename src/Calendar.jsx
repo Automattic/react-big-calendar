@@ -17,6 +17,7 @@ import moveDate from './utils/move';
 import VIEWS from './Views';
 import Toolbar from './Toolbar';
 import Staffbar from './Staffbar';
+import EventFilterMode from './EventFilterMode';
 
 import omit from 'lodash/object/omit';
 import defaults from 'lodash/object/defaults';
@@ -60,12 +61,6 @@ const computeStaffLayout = ( me, others ) => {
   );
 
   return result;
-};
-
-const EventFilterMode = {
-  CurrentUserOnly: 0,
-  Available      : 1,
-  All            : 2,
 };
 
 const displayFilters = {
@@ -530,7 +525,7 @@ let Calendar = React.createClass({
             others={others}
             isStaff={isStaff}
             staffLayout={staffLayout}
-            onPickFilterYou={ () => {
+            onPickFilterCurrentUserOnly={ () => {
               this.setState( {
                 eventFilterMode: EventFilterMode.CurrentUserOnly,
               } )

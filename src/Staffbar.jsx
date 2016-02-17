@@ -58,7 +58,7 @@ const Staffbar = ( props ) => {
     others,
     staffLayout,
     onStaffToggle,
-    onPickFilterYou,
+    onPickFilterCurrentUserOnly,
     onPickFilterAvailable,
     onPickFilterAll,
   } = props;
@@ -75,7 +75,7 @@ const Staffbar = ( props ) => {
       { staffsToGravatars( staffs, staffLayout ) }
       <span className='rbc-staffbar-buttons'>
         <EventFilterMenu
-          onPickFilterYou={ onPickFilterYou }
+          onPickFilterCurrentUserOnly={ onPickFilterCurrentUserOnly }
           onPickFilterAvailable= { onPickFilterAvailable }
           onPickFilterAll = { onPickFilterAll }
         />
