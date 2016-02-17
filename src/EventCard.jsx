@@ -63,9 +63,16 @@ class EventCard extends Component {
     // FIXME: should be access via a new accessor.
     const calendarColorName = 'calendar-color-' + ( event.calendarId % 8 );
 
+    const styleAfterDragging = Object.assign( {}, style );
+    if ( isDragging ) {
+      styleAfterDragging.visibility = 'hidden';
+    } else {
+      styleAfterDragging.visibility = 'visible';
+    }
+
     return connectDragSource(
       <div
-        style={style}
+        style={styleAfterDragging}
         title={label + ': ' + title }
         onClick={ ( event ) => {
           if ( ownedByCurrentUser ) {
