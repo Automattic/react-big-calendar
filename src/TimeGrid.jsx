@@ -127,9 +127,9 @@ let TimeGrid = React.createClass({
   },
 
   renderTimezoneHeaders( timezoneNames ) {
-    return timezoneNames.map( ( timezoneName ) => {
+    return timezoneNames.map( ( timezoneName, index ) => {
       return (
-        <TimezoneButton
+        <TimezoneButton key={index}
           timezoneName={timezoneName}
         />
       );
