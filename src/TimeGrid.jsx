@@ -111,18 +111,24 @@ let TimeGrid = React.createClass({
         <div ref='headerCell' className='rbc-time-header'>
           <div className='rbc-row'>
             <div ref={addGutterRef(0)} className='rbc-gutter-cell'>
-            { this.renderTimezoneHeaders( availableTimezones ) }
+            { this.renderTimezoneHeaders( checkedTimezones ) }
             </div>
             { showDateHeader && this.renderHeader(range) }
           </div>
         </div>
         <div ref='content' className='rbc-time-content'>
-          <TimeGutter ref='gutter' {...this.props}/>
+          { this.renderTimeGutters( checkedTimezones ) }
           {
             this.renderEvents(range, rangeEvents)
           }
         </div>
       </div>
+    );
+  },
+
+  renderTimeGutters( timezoneNames ) {
+    return (
+      <TimeGutter ref='gutter' {...this.props}/>
     );
   },
 
