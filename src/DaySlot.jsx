@@ -95,7 +95,7 @@ let DaySlot = React.createClass({
         min, max, step, start, end
       , selectRangeFormat, culture
       , staffingStatusFunc
-      , staffLayout
+      , eventLayout
       , onDropEventCard
       , ...props } = this.props;
 
@@ -149,7 +149,7 @@ let DaySlot = React.createClass({
     return (
       <div {...props} className={cn('rbc-day-slot', props.className)}>
         { children }
-        { this.renderEvents(numSlots, totalMin, staffLayout) }
+        { this.renderEvents(numSlots, totalMin, eventLayout) }
         {
           selecting &&
             <div className='rbc-slot-selection' style={style}>
@@ -166,26 +166,24 @@ let DaySlot = React.createClass({
     );
   },
 
-  renderEvents(numSlots, totalMin, staffLayout) {
+  renderEvents(numSlots, totalMin, eventLayout) {
     let {
         me, events, step, min, culture, eventPropGetter
       , selected, eventTimeRangeFormat, eventComponent
-      , displayFilterFunc, onEventEditing, onEventEdited
+      , onEventEditing, onEventEdited
       , startAccessor, endAccessor, titleAccessor } = this.props;
 
     const {
       cellWidths,
       cellPos,
       idToIndex,
-    } = staffLayout;
+    } = eventLayout;
 
     let lastLeftOffset = 0;
 
     events.sort((a, b) => +get(a, startAccessor) - +get(b, startAccessor))
 
-    const filteredEvents = displayFilterFunc( events );
-
-    return filteredEvents.map((event, idx) => {
+    return events.map((event, idx) => {
       let start = get(event, startAccessor)
       let end = get(event, endAccessor)
       let startSlot = positionFromDate(start, min, step);

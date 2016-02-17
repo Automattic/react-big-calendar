@@ -62,6 +62,42 @@ const computeStaffLayout = ( me, others ) => {
   return result;
 };
 
+const EventFilterMode = {
+  CurrentUserOnly: 0,
+  Available      : 1,
+  All            : 2,
+};
+
+const displayFilters = {
+  [ EventFilterMode.CurrentUserOnly ]: ( events, me ) => {
+    return events.filter( ( e ) => e.userId === me.id );
+  },
+  [ EventFilterMode.Available ]: ( events, me ) => {
+    return events.filter( ( e ) => e.state === 1 ); // YACK!
+  },
+  [ EventFilterMode.All ]: ( events, me ) => {
+    return events;
+  },
+};
+
+const computeCurrentUserOnlyLayout = ( me, others ) => {
+  return {
+    cellWidths: [ 200 ], // let our CSS and browser layout engines do the trick
+    cellPos   : [ 0 ],
+    idToIndex : {
+      [ me.id ] : 0,
+    }
+  };
+};
+
+const computeEventLayout = {
+  [ EventFilterMode.CurrentUserOnly ]: computeCurrentUserOnlyLayout,
+
+  // Yep, these two are identical to the layout needed by Staffbar.
+  [ EventFilterMode.Available ]: computeStaffLayout,
+  [ EventFilterMode.All ]: computeStaffLayout,
+};
+
 /**
  * react-big-calendar is full featured Calendar component for managing events and dates. It uses
  * modern `flexbox` for layout making it super responsive and performant. Leaving most of the layout heavy lifting
@@ -416,7 +452,9 @@ let Calendar = React.createClass({
   },
 
   getInitialState() {
-    return {};
+    return {
+      eventFilterMode: EventFilterMode.CurrentUserOnly,
+    };
   },
 
   render() {
@@ -436,7 +474,7 @@ let Calendar = React.createClass({
       , ...props } = this.props;
 
     let {
-      currentDayDisplayFilter
+      eventFilterMode,
     } = this.state;
 
     formats = defaultFormats(formats)
@@ -451,28 +489,18 @@ let Calendar = React.createClass({
       omit(components, names)
     )
 
-    // FIXME:
-    // This should be passed as props
-    let displayFilters = {
-      you: ( events ) => {
-        return events.filter( ( e ) => e.userId === me.id );
-      },
-      available: ( events ) => {
-        return events.filter( ( e ) => e.state === 1 ); // YACK!
-      },
-      all: ( events ) => {
-        return events;
-      },
-    };
+    // Filtering events and deciding layout
 
-    currentDayDisplayFilter = currentDayDisplayFilter || displayFilters.all;
-
-    let displayFilterFunc
+    let filteredEvents;
+    let eventLayout;
 
     if ( view === 'day' ) {
-      displayFilterFunc = currentDayDisplayFilter;
-    } else {
-      displayFilterFunc = displayFilters.you;
+      filteredEvents = displayFilters[ eventFilterMode ]( events, me );
+      eventLayout = computeEventLayout[ eventFilterMode ]( me, others );
+
+    } else { // weekly view
+      filteredEvents = displayFilters[ EventFilterMode.CurrentUserOnly ]( events, me );
+      eventLayout = computeEventLayout[ eventFilterMode ]( me, others );
     }
 
     const staffLayout = computeStaffLayout( me, others );
@@ -508,17 +536,17 @@ let Calendar = React.createClass({
             staffLayout={staffLayout}
             onPickFilterYou={ () => {
               this.setState( {
-                currentDayDisplayFilter: displayFilters.you,
+                eventFilterMode: EventFilterMode.CurrentUserOnly,
               } )
             } }
             onPickFilterAvailable={ () => {
               this.setState( {
-                currentDayDisplayFilter: displayFilters.available,
+                eventFilterMode: EventFilterMode.Available,
               } )
             } }
             onPickFilterAll={ () => {
               this.setState( {
-                currentDayDisplayFilter: displayFilters.all,
+                eventFilterMode: EventFilterMode.All,
               } )
             } }
           />
@@ -530,9 +558,8 @@ let Calendar = React.createClass({
           me={me} // FIXME: this name is bad. currentUser is better.
           culture={culture}
           formats={undefined}
-          events={events}
-          staffLayout={staffLayout}
-          displayFilterFunc={displayFilterFunc}
+          events={filteredEvents}
+          eventLayout={eventLayout}
           date={current}
           components={viewComponents}
           staffingStatusFunc={staffingStatusFunc}
