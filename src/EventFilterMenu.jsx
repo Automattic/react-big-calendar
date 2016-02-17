@@ -47,6 +47,7 @@ class EventFilterMenu extends Component {
 
     this.state = {
       filterType: FilterType.You,
+      showMenu: false,
     };
   }
 
@@ -59,8 +60,9 @@ class EventFilterMenu extends Component {
         <a
           href='#'
           onClick={ ( event ) => {
+            const toggled = ! showMenu;
             this.setState( {
-              showMenu: {}
+              showMenu: toggled,
             } );
           } }
         >
@@ -79,13 +81,19 @@ class EventFilterMenu extends Component {
       onPickFilterAll,
     } = this.props;
 
+    const dismiss = () => {
+      this.setState( {
+        showMenu: false,
+      } );
+    };
+
     return (
       <Overlay
         rootClose
         placement='bottom'
         container={ this }
-        show={ null != showMenu }
-        onHide={ () => this.setState( { showMenu: null } ) }
+        show={ showMenu }
+        onHide={ () => {} }
       >
         <FilterMenu
           onClickYou = { ( event ) => {
@@ -94,6 +102,8 @@ class EventFilterMenu extends Component {
             this.setState( {
               filterType: FilterType.You,
             } )
+
+            dismiss();
           } }
           onClickAvailable = { ( event ) => {
             onPickFilterAvailable && onPickFilterAvailable();
@@ -101,6 +111,8 @@ class EventFilterMenu extends Component {
             this.setState( {
               filterType: FilterType.Available,
             } )
+
+            dismiss();
           } }
           onClickAll = { ( event ) => {
             onPickFilterAll && onPickFilterAll();
@@ -108,6 +120,8 @@ class EventFilterMenu extends Component {
             this.setState( {
               filterType: FilterType.All,
             } )
+
+            dismiss();
           } }
         />
       </Overlay>
