@@ -11,6 +11,7 @@ import DaySlot from './DaySlot';
 import EventRow from './EventRow';
 import TimeGutter from './TimeGutter';
 import BackgroundCells from './BackgroundCells';
+import TimezoneButton from './TimezoneButton';
 
 import classes from 'dom-helpers/class';
 import getWidth from 'dom-helpers/query/width';
@@ -109,7 +110,9 @@ let TimeGrid = React.createClass({
       <div className='rbc-time-view'>
         <div ref='headerCell' className='rbc-time-header'>
           <div className='rbc-row'>
-            <div ref={addGutterRef(0)} className='rbc-gutter-cell'/>
+            <div ref={addGutterRef(0)} className='rbc-gutter-cell'>
+            { this.renderTimezoneHeaders( availableTimezones ) }
+            </div>
             { showDateHeader && this.renderHeader(range) }
           </div>
         </div>
@@ -121,6 +124,16 @@ let TimeGrid = React.createClass({
         </div>
       </div>
     );
+  },
+
+  renderTimezoneHeaders( timezoneNames ) {
+    return timezoneNames.map( ( timezoneName ) => {
+      return (
+        <TimezoneButton
+          timezoneName={timezoneName}
+        />
+      );
+    } );
   },
 
   renderEvents(range, events){
