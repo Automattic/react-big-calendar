@@ -525,6 +525,7 @@ let Calendar = React.createClass({
             others={others}
             isStaff={isStaff}
             staffLayout={staffLayout}
+            eventFilterMode={eventFilterMode}
             onPickFilterCurrentUserOnly={ () => {
               this.setState( {
                 eventFilterMode: EventFilterMode.CurrentUserOnly,

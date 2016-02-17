@@ -42,14 +42,14 @@ class EventFilterMenu extends Component {
     super( props );
 
     this.state = {
-      filterType: EventFilterMode.CurrentUserOnly,
       showMenu: false,
     };
   }
 
   render() {
-    const { showMenu, filterType } = this.state;
-    const text = typeToText( filterType );
+    const { eventFilterMode } = this.props;
+    const { showMenu } = this.state;
+    const text = typeToText( eventFilterMode );
 
     return (
       <div className='rbc-event-filter-menu dropdown-container dropdown-arrow'>
@@ -96,7 +96,7 @@ class EventFilterMenu extends Component {
             onPickFilterCurrentUserOnly && onPickFilterCurrentUserOnly();
 
             this.setState( {
-              filterType: EventFilterMode.CurrentUserOnly,
+              eventFilterMode: EventFilterMode.CurrentUserOnly,
             } )
 
             dismiss();
@@ -105,7 +105,7 @@ class EventFilterMenu extends Component {
             onPickFilterAvailable && onPickFilterAvailable();
 
             this.setState( {
-              filterType: EventFilterMode.Available,
+              eventFilterMode: EventFilterMode.Available,
             } )
 
             dismiss();
@@ -114,7 +114,7 @@ class EventFilterMenu extends Component {
             onPickFilterAll && onPickFilterAll();
 
             this.setState( {
-              filterType: EventFilterMode.All,
+              eventFilterMode: EventFilterMode.All,
             } )
 
             dismiss();
