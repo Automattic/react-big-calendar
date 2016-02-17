@@ -3,6 +3,8 @@ import cn from 'classnames';
 import dates from './utils/dates';
 import localizer from './localizer'
 
+import moment from 'moment-timezone';
+
 let TimeGutter = React.createClass({
 
   propTypes: {
@@ -12,12 +14,25 @@ let TimeGutter = React.createClass({
   },
 
   render() {
-    let { min, max, step, timeGutterFormat, culture } = this.props;
+    let { min, max, step, timeGutterFormat, culture, timezoneName } = this.props;
     let today = new Date()
     let totalMin = dates.diff(min, max, 'minutes')
     let numSlots = Math.ceil(totalMin / step)
     let date = min;
     let children = []; //<div key={-1} className='rbc-time-slot rbc-day-header'>&nbsp;</div>
+
+    // TODO:
+    // Providing a customized format function may not a clean way to do the trick.
+    // The point is to generate time strings according to `timezoneName`.
+    const formatFunc = ( value, culture, localizer ) => {
+      let actualTimezone;
+      if ( 'Local' === timezoneName ) {
+        actualTimezone = moment.tz.guess();
+      } else {
+        actualTimezone = timezoneName;
+      }
+      return moment( value ).tz( actualTimezone ).format( timeGutterFormat );
+    };
 
     for (var i = 0; i < numSlots; i++) {
       let isEven = (i % 2) === 0;
@@ -29,7 +44,7 @@ let TimeGutter = React.createClass({
           })}
         >
         { isEven && (
-            <span>{localizer.format(date, timeGutterFormat, culture)}</span>
+            <span>{localizer.format(date, formatFunc, culture )}</span>
           )
         }
         </div>

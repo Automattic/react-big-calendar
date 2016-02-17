@@ -127,9 +127,16 @@ let TimeGrid = React.createClass({
   },
 
   renderTimeGutters( timezoneNames ) {
-    return (
-      <TimeGutter ref='gutter' {...this.props}/>
-    );
+    const renderTimeGutter = ( timezoneName, index ) => {
+      return(
+        <TimeGutter ref='gutter' key={index}
+          timezoneName={timezoneName}
+          {...this.props}
+        />
+      );
+    }
+
+    return timezoneNames.map( renderTimeGutter );
   },
 
   renderTimezoneHeaders( timezoneNames ) {
