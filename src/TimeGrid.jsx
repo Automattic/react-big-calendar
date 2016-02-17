@@ -62,7 +62,7 @@ let TimeGrid = React.createClass({
 
   render() {
     let {
-        events, start, end, messages
+        events, start, end, messages, showDateHeader
       , startAccessor, endAccessor, allDayAccessor } = this.props;
 
     let addGutterRef = i => ref => this._gutters[i] = ref;
@@ -101,7 +101,7 @@ let TimeGrid = React.createClass({
         <div ref='headerCell' className='rbc-time-header'>
           <div className='rbc-row'>
             <div ref={addGutterRef(0)} className='rbc-gutter-cell'/>
-            { this.renderHeader(range) }
+            { showDateHeader && this.renderHeader(range) }
           </div>
         </div>
         <div ref='content' className='rbc-time-content'>

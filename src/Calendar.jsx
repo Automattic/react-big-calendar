@@ -555,6 +555,7 @@ let Calendar = React.createClass({
           date={current}
           components={viewComponents}
           staffingStatusFunc={staffingStatusFunc}
+          showDateHeader={'day' !== view}
           onNavigate={this._navigate}
           onHeaderClick={this._headerClick}
           onSelectEvent={this._select}
