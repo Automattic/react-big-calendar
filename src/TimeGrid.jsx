@@ -62,8 +62,17 @@ let TimeGrid = React.createClass({
 
   render() {
     let {
-        events, start, end, messages, showDateHeader
-      , startAccessor, endAccessor, allDayAccessor } = this.props;
+      events,
+      start,
+      end,
+      messages,
+      showDateHeader,
+      checkedTimezones,
+      availableTimezones,
+      startAccessor,
+      endAccessor,
+      allDayAccessor,
+    } = this.props;
 
     let addGutterRef = i => ref => this._gutters[i] = ref;
 

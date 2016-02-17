@@ -445,6 +445,8 @@ let Calendar = React.createClass({
   getInitialState() {
     return {
       eventFilterMode: EventFilterMode.CurrentUserOnly,
+      checkedTimezones: [ 'Local', 'UTC' ],
+      availableTimezones: [ 'Local', 'UTC', 'EST' ],
     };
   },
 
@@ -466,6 +468,8 @@ let Calendar = React.createClass({
 
     let {
       eventFilterMode,
+      checkedTimezones,
+      availableTimezones,
     } = this.state;
 
     formats = defaultFormats(formats)
@@ -556,6 +560,8 @@ let Calendar = React.createClass({
           components={viewComponents}
           staffingStatusFunc={staffingStatusFunc}
           showDateHeader={'day' !== view}
+          checkedTimezones={checkedTimezones}
+          availableTimezones={availableTimezones}
           onNavigate={this._navigate}
           onHeaderClick={this._headerClick}
           onSelectEvent={this._select}
