@@ -173,12 +173,6 @@ let DaySlot = React.createClass({
       , onEventEditing, onEventEdited
       , startAccessor, endAccessor, titleAccessor } = this.props;
 
-    const {
-      cellWidths,
-      cellPos,
-      idToIndex,
-    } = eventLayout;
-
     let lastLeftOffset = 0;
 
     events.sort((a, b) => +get(a, startAccessor) - +get(b, startAccessor))
@@ -218,13 +212,21 @@ let DaySlot = React.createClass({
         }
       }
 
-      const eventCellIndex = idToIndex[ event.userId ];
-      const eventWidth = cellWidths[ eventCellIndex ] - 1; // to leave a small spacing between EventCards.
-      const eventPos = cellPos[ eventCellIndex ];
+      const alignToStaffStyle = {};
 
-      const alignToStaffStyle = {
-        left: eventPos,
-        width: eventWidth,
+      if ( null != eventLayout ) {
+        const {
+          cellWidths,
+          cellPos,
+          idToIndex,
+        } = eventLayout;
+
+        const eventCellIndex = idToIndex[ event.userId ];
+        const eventWidth = cellWidths[ eventCellIndex ] - 1; // to leave a small spacing between EventCards.
+        const eventPos = cellPos[ eventCellIndex ];
+
+        alignToStaffStyle.left = eventPos;
+        alignToStaffStyle.width = eventWidth;
       }
 
       return (

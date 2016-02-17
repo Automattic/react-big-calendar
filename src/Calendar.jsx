@@ -80,14 +80,10 @@ const displayFilters = {
   },
 };
 
+// the current version simply let the CSS to do the trick.
+// I left this function here simply for retaining the flexibility for future adjustments.
 const computeCurrentUserOnlyLayout = ( me, others ) => {
-  return {
-    cellWidths: [ 200 ], // let our CSS and browser layout engines do the trick
-    cellPos   : [ 0 ],
-    idToIndex : {
-      [ me.id ] : 0,
-    }
-  };
+  return null;
 };
 
 const computeEventLayout = {
