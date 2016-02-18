@@ -126,25 +126,18 @@ let TimeGrid = React.createClass({
   },
 
   renderTimeGutters( checkedTimezones ) {
-    const addGutterCellRef = i => ref => {
+    const addRef = memo => i => ref => {
       if ( null == ref ) {
-        this._gutters.splice( i, 1 );
+        memo.splice( i, 1 );
       } else {
-        this._gutters[i] = ref;
-      }
-    };
-    const addTimeGutterRef = i => ref => {
-      if ( null == ref ) {
-        this._timeGutters.splice( i, 1 );
-      } else {
-        this._timeGutters[i] = ref;
+        memo[i] = ref;
       }
     };
 
     const renderTimeGutter = ( timezoneName, index ) => {
       return(
-        <div ref={addGutterCellRef( index )} className='rbc-gutter-cell' key={index}>
-          <TimeGutter ref={addTimeGutterRef( index )}
+        <div ref={addRef( this._gutters )( index )} className='rbc-gutter-cell' key={index}>
+          <TimeGutter ref={addRef( this._timeGutters )( index )}
             timezoneName={timezoneName}
             {...this.props}
           />
