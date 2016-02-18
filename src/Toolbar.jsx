@@ -56,6 +56,9 @@ const JoinButton = ( props ) => {
 
   return (
       <button
+        className={ cn( 'rbc-toolbar-join-button', {
+          'joined': isStaff,
+        } ) }
         type='button'
         onClick={ callback }
       >
