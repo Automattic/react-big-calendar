@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import uncontrollable from 'uncontrollable';
+import * as _ from 'underscore';
 import cn from 'classnames';
 import {
     accessor
@@ -500,6 +501,11 @@ let Calendar = React.createClass({
 
     const staffLayout = computeStaffLayout( me, others );
 
+    // FIXME:
+    // This is bad. Find a way to not compute the padding here, and care about responsiveness.
+    const numCheckedTimezones = _.countBy( timezoneCheckStatus, ( status ) => status )[ true ];
+    const gutterPadding = 60 * numCheckedTimezones;
+
     return (
       <div {...elementProps}
         className={cn('rbc-calendar', className, {
@@ -530,6 +536,7 @@ let Calendar = React.createClass({
             isStaff={isStaff}
             staffLayout={staffLayout}
             eventFilterMode={eventFilterMode}
+            gutterPadding={gutterPadding}
             onPickFilterCurrentUserOnly={ () => {
               this.setState( {
                 eventFilterMode: EventFilterMode.CurrentUserOnly,

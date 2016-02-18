@@ -58,6 +58,7 @@ const Staffbar = ( props ) => {
     others,
     staffLayout,
     eventFilterMode,
+    gutterPadding,
     onStaffToggle,
     onPickFilterCurrentUserOnly,
     onPickFilterAvailable,
@@ -72,7 +73,7 @@ const Staffbar = ( props ) => {
   }
 
   return (
-    <div className='rbc-staffbar'>
+    <div className='rbc-staffbar' style={{paddingLeft: gutterPadding}}>
       { staffsToGravatars( staffs, staffLayout ) }
       <span className='rbc-staffbar-buttons'>
         <EventFilterMenu
