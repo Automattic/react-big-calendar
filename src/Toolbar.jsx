@@ -52,7 +52,7 @@ const JoinButton = ( props ) => {
   const { isStaff, onClickJoin, onClickLeave, joinMsg, joinedMsg, leaveMsg } = props;
 
   const callback = isStaff ? onClickLeave : onClickJoin;
-  const msg      = isStaff ? leaveMsg     : joinMsg;
+  const msg      = isStaff ? joinedMsg    : joinMsg;
 
   return (
       <button
