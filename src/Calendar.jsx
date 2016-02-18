@@ -448,7 +448,16 @@ let Calendar = React.createClass({
       eventFilterMode: EventFilterMode.CurrentUserOnly,
       timezoneCheckStatus: [ true ],
       availableTimezones: [ 'Local', 'UTC', 'EST' ],
+      freezeHeader: false,
     };
+  },
+
+  componentDidMount() {
+    window.addEventListener( 'scroll', this._handleScroll );
+  },
+
+  componentWillUnmount: function() {
+    window.removeEventListener( 'scroll', this._handleScroll );
   },
 
   render() {
@@ -471,6 +480,7 @@ let Calendar = React.createClass({
       eventFilterMode,
       timezoneCheckStatus,
       availableTimezones,
+      freezeHeader,
     } = this.state;
 
     formats = defaultFormats(formats)
@@ -509,7 +519,8 @@ let Calendar = React.createClass({
     return (
       <div {...elementProps}
         className={cn('rbc-calendar', className, {
-          'rbc-rtl': props.rtl
+          'rbc-rtl': props.rtl,
+          'header-fixed': freezeHeader,
         })}
         style={style}
       >
@@ -659,6 +670,26 @@ let Calendar = React.createClass({
     this.setState( {
       timezoneCheckStatus: newStatus,
     } );
+  },
+
+  _handleScroll(event) {
+    const { freezeHeader } = this.state;
+    const threshold = 106;
+    const scrollTop = event.srcElement.body.scrollTop;
+
+    if ( freezeHeader ) {
+      if ( scrollTop < threshold ) {
+        this.setState( {
+          freezeHeader: false,
+        } );
+      }
+    } else {
+      if ( scrollTop >= threshold ) {
+        this.setState( {
+          freezeHeader: true,
+        } );
+      }
+    }
   },
 });
 
