@@ -25,7 +25,7 @@ const TimezoneDialog = ( props ) => {
   const timezoneCheckBoxes = availableTimezones.map( createTimezoneCheckBox );
 
   return (
-    <div className='rbc-timezone-popup-dialog'>
+    <div className='rbc-timezone-popup-dialog dropdown'>
       { timezoneCheckBoxes }
     </div>
   );
