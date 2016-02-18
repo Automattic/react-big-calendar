@@ -68,7 +68,7 @@ let TimeGrid = React.createClass({
       end,
       messages,
       showDateHeader,
-      checkedTimezones,
+      timezoneCheckStatus,
       availableTimezones,
       startAccessor,
       endAccessor,
@@ -106,12 +106,14 @@ let TimeGrid = React.createClass({
     let segments = allDayEvents.map(evt => eventSegments(evt, start, end, this.props))
     let { levels } = eventLevels(segments)
 
+    const checkedTimezones = availableTimezones.filter( ( timezone, index ) => timezoneCheckStatus[ index ] );
+
     return (
       <div className='rbc-time-view'>
         <div ref='headerCell' className='rbc-time-header'>
           <div className='rbc-row'>
             <div ref={addGutterRef(0)} className='rbc-gutter-cell'>
-            { this.renderTimezoneHeaders( checkedTimezones, availableTimezones ) }
+            { this.renderTimezoneHeaders( checkedTimezones ) }
             </div>
             { showDateHeader && this.renderHeader(range) }
           </div>
@@ -126,7 +128,7 @@ let TimeGrid = React.createClass({
     );
   },
 
-  renderTimeGutters( timezoneNames ) {
+  renderTimeGutters( checkedTimezones ) {
     const renderTimeGutter = ( timezoneName, index ) => {
       return(
         <TimeGutter ref='gutter' key={index}
@@ -136,16 +138,23 @@ let TimeGrid = React.createClass({
       );
     }
 
-    return timezoneNames.map( renderTimeGutter );
+    return checkedTimezones.map( renderTimeGutter );
   },
 
-  renderTimezoneHeaders( checkedTimezones, availableTimezones ) {
+  renderTimezoneHeaders( checkedTimezones ) {
+    const {
+      timezoneCheckStatus,
+      availableTimezones,
+      onCheckTimezone,
+    } = this.props;
+
     return checkedTimezones.map( ( timezoneName, index ) => {
       return (
         <TimezoneButton key={index}
           timezoneName={timezoneName}
-          checkedTimezones={checkedTimezones}
+          timezoneCheckStatus={timezoneCheckStatus}
           availableTimezones={availableTimezones}
+          onCheckTimezone={onCheckTimezone}
         />
       );
     } );

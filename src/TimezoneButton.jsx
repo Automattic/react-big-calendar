@@ -15,7 +15,7 @@ class TimezoneButton extends Component {
   render() {
     const {
       timezoneName,
-      checkedTimezones,
+      timezoneCheckStatus,
       availableTimezones,
     } = this.props;
 
@@ -44,8 +44,9 @@ class TimezoneButton extends Component {
 
   _renderDialog() {
     const {
-      checkedTimezones,
+      timezoneCheckStatus,
       availableTimezones,
+      onCheckTimezone,
     } = this.props;
 
     const {
@@ -61,8 +62,9 @@ class TimezoneButton extends Component {
         onHide={ () => this.setState( { showDialog: false } ) }
       >
         <TimezoneDialog
-          checkedTimezones = { checkedTimezones }
+          timezoneCheckStatus = { timezoneCheckStatus }
           availableTimezones = { availableTimezones }
+          onCheckTimezone = { onCheckTimezone }
         />
       </Overlay>
     );

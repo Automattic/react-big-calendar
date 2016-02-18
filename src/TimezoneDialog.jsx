@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 const TimezoneDialog = ( props ) => {
   const {
     availableTimezones,
-    checkedTimezones,
+    timezoneCheckStatus,
+    onCheckTimezone,
   } = props;
 
   const createTimezoneCheckBox = ( timezone, index ) => {
@@ -13,9 +14,12 @@ const TimezoneDialog = ( props ) => {
           type    = 'checkbox'
           id      = { timezone }
           name    = { timezone }
-          value   = { timezone }
-          checked = { -1 !== checkedTimezones.findIndex( ( cand ) => cand === timezone ) }
-          onChange= {() => {} }
+          value   = { index }
+          checked = { timezoneCheckStatus[ index ] }
+          onChange= {( domEvent ) => {
+            const { target } = domEvent;
+            onCheckTimezone( target.value, target.checked );
+          } }
         />
         <label htmlFor={ timezone }>{ timezone }</label>
       </li>

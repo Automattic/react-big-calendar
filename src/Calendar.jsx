@@ -445,7 +445,7 @@ let Calendar = React.createClass({
   getInitialState() {
     return {
       eventFilterMode: EventFilterMode.CurrentUserOnly,
-      checkedTimezones: [ 'Local', 'UTC' ],
+      timezoneCheckStatus: [ true ],
       availableTimezones: [ 'Local', 'UTC', 'EST' ],
     };
   },
@@ -468,7 +468,7 @@ let Calendar = React.createClass({
 
     let {
       eventFilterMode,
-      checkedTimezones,
+      timezoneCheckStatus,
       availableTimezones,
     } = this.state;
 
@@ -560,7 +560,7 @@ let Calendar = React.createClass({
           components={viewComponents}
           staffingStatusFunc={staffingStatusFunc}
           showDateHeader={'day' !== view}
-          checkedTimezones={checkedTimezones}
+          timezoneCheckStatus={timezoneCheckStatus}
           availableTimezones={availableTimezones}
           onNavigate={this._navigate}
           onHeaderClick={this._headerClick}
@@ -570,6 +570,7 @@ let Calendar = React.createClass({
           onDropEventCard={this._dropEventCard}
           onEventEditing={this._eventEditing}
           onEventEdited={this._eventEdited}
+          onCheckTimezone={this._checkTimezone}
         />
       </div>
     );
@@ -638,6 +639,19 @@ let Calendar = React.createClass({
 
   _eventEdited(event) {
     notify( this.props.onEventEdited, event );
+  },
+
+  _checkTimezone( index, status ) {
+    const {
+      timezoneCheckStatus,
+    } = this.state;
+
+    const newStatus = timezoneCheckStatus.slice();
+    newStatus[ index ] = status;
+
+    this.setState( {
+      timezoneCheckStatus: newStatus,
+    } );
   },
 });
 
