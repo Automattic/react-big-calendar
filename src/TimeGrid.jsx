@@ -75,8 +75,6 @@ let TimeGrid = React.createClass({
       allDayAccessor,
     } = this.props;
 
-    let addGutterRef = i => ref => this._gutters[i] = ref;
-
     let range = dates.range(start, end, 'day')
 
     this._slots = range.length;
@@ -112,9 +110,7 @@ let TimeGrid = React.createClass({
       <div className='rbc-time-view'>
         <div ref='headerCell' className='rbc-time-header'>
           <div className='rbc-row'>
-            <div ref={addGutterRef(0)} className='rbc-gutter-cell'>
             { this.renderTimezoneHeaders( checkedTimezones ) }
-            </div>
             { showDateHeader && this.renderHeader(range) }
           </div>
         </div>
@@ -129,12 +125,16 @@ let TimeGrid = React.createClass({
   },
 
   renderTimeGutters( checkedTimezones ) {
+    let addGutterRef = i => ref => this._gutters[i] = ref;
+
     const renderTimeGutter = ( timezoneName, index ) => {
       return(
-        <TimeGutter ref='gutter' key={index}
-          timezoneName={timezoneName}
-          {...this.props}
-        />
+        <div ref={addGutterRef(index)} className='rbc-gutter-cell' key={index}>
+          <TimeGutter ref='gutter'
+            timezoneName={timezoneName}
+            {...this.props}
+          />
+        </div>
       );
     }
 
