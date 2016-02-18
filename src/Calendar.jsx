@@ -674,7 +674,7 @@ let Calendar = React.createClass({
 
   _handleScroll(event) {
     const { freezeHeader } = this.state;
-    const threshold = 106;
+    const threshold = 74;
     const scrollTop = event.srcElement.body.scrollTop;
 
     if ( freezeHeader ) {
