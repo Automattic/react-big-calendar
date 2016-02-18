@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as _ from 'underscore';
 
 const TimezoneDialog = ( props ) => {
   const {
@@ -6,6 +7,20 @@ const TimezoneDialog = ( props ) => {
     timezoneCheckStatus,
     onCheckTimezone,
   } = props;
+
+  const onChange = ( domEvent ) => {
+    const { target } = domEvent;
+
+    // if there is only one checked, do not allow unchecking
+    // because we need at least one gutter available.
+    const numChecked = _.countBy( timezoneCheckStatus, ( status ) => status )[ true ];
+
+    if ( false === target.checked && 1 === numChecked ) {
+      return;
+    }
+
+    onCheckTimezone( target.value, target.checked );
+  };
 
   const createTimezoneCheckBox = ( timezone, index ) => {
     return (
@@ -16,10 +31,7 @@ const TimezoneDialog = ( props ) => {
           name    = { timezone }
           value   = { index }
           checked = { timezoneCheckStatus[ index ] }
-          onChange= {( domEvent ) => {
-            const { target } = domEvent;
-            onCheckTimezone( target.value, target.checked );
-          } }
+          onChange= { onChange }
         />
         <label htmlFor={ timezone }>{ timezone }</label>
       </li>
