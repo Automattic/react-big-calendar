@@ -51,6 +51,7 @@ let TimeGrid = React.createClass({
 
   componentWillMount() {
     this._gutters = [];
+    this._timeGutters = [];
   },
 
   componentDidMount() {
@@ -125,12 +126,25 @@ let TimeGrid = React.createClass({
   },
 
   renderTimeGutters( checkedTimezones ) {
-    let addGutterRef = i => ref => this._gutters[i] = ref;
+    const addGutterCellRef = i => ref => {
+      if ( null == ref ) {
+        this._gutters.splice( i, 1 );
+      } else {
+        this._gutters[i] = ref;
+      }
+    };
+    const addTimeGutterRef = i => ref => {
+      if ( null == ref ) {
+        this._timeGutters.splice( i, 1 );
+      } else {
+        this._timeGutters[i] = ref;
+      }
+    };
 
     const renderTimeGutter = ( timezoneName, index ) => {
       return(
-        <div ref={addGutterRef(index)} className='rbc-gutter-cell' key={index}>
-          <TimeGutter ref='gutter'
+        <div ref={addGutterCellRef( index )} className='rbc-gutter-cell' key={index}>
+          <TimeGutter ref={addTimeGutterRef( index )}
             timezoneName={timezoneName}
             {...this.props}
           />
@@ -239,7 +253,8 @@ let TimeGrid = React.createClass({
     let isRtl = this.props.rtl;
     let header = this.refs.headerCell;
     let width = this._gutterWidth
-    let gutterCells = [findDOMNode(this.refs.gutter), ...this._gutters]
+    let timeGutterNodes = this._timeGutters.map( ( timeGutter ) => findDOMNode( timeGutter ) );
+    let gutterCells = [ ...timeGutterNodes, ...this._gutters ]
     let isOverflowing = this.refs.content.scrollHeight > this.refs.content.clientHeight;
 
     if (width)
