@@ -536,7 +536,7 @@ let Calendar = React.createClass({
     // FIXME:
     // This is bad. Find a way to not compute the padding here, and care about responsiveness.
     const numCheckedTimezones = _.countBy( timezoneCheckStatus, ( status ) => status )[ true ];
-    const gutterPadding = 60 * numCheckedTimezones;
+    const gutterPadding = 50 * numCheckedTimezones;
 
     return (
       <div {...elementProps}
