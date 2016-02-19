@@ -5,10 +5,16 @@ import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from './Constants';
 import EventDialog from './EventDialog';
+import LoadingSpinner from './LoadingSpinner';
 
 const eventCardDragSource = {
   canDrag( props ) {
-    return props.ownedByCurrentUser;
+    const {
+      event,
+      ownedByCurrentUser,
+    } = props;
+
+    return ownedByCurrentUser && ! isSavingBackToServer( event );
   },
 
   beginDrag( props ) {
@@ -30,6 +36,12 @@ function collect( connect, monitor ) {
     isDragging: monitor.isDragging(),
   }
 }
+
+// TODO:
+// A more general way of doing this.
+const isSavingBackToServer = ( event ) => {
+  return -1 === event.id;
+};
 
 class EventCard extends Component {
   constructor( props ) {
@@ -74,12 +86,14 @@ class EventCard extends Component {
       styleAfterDragging.visibility = 'visible';
     }
 
+    const isSaving = isSavingBackToServer( event );
+
     return connectDragSource(
       <div
         style={styleAfterDragging}
         title={label + ': ' + title }
         onClick={ ( event ) => {
-          if ( ownedByCurrentUser ) {
+          if ( ownedByCurrentUser && ! isSaving ) {
             const toggledShowDialog = ! showDialog;
             this.setState( {
               showDialog: toggledShowDialog,
@@ -94,6 +108,7 @@ class EventCard extends Component {
           'rbc-event-afk': event.state === 0, //FIXME: should be access via a new accessor.
         })}
       >
+        { isSaving && <LoadingSpinner /> }
         { ownedByCurrentUser && <div className='rbc-event-label'>{label}</div> }
         <div className='rbc-event-content'>
           { EventComponent
