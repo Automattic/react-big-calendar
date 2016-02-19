@@ -9,7 +9,6 @@ const createStaffSpan = ( cellWidth, cellPos, key, innerElement ) => {
   return (
     <span className='rbc-staffbar-staffs-staff' key={ key }
       style={ {
-        left: cellPos,
         width: cellWidth,
       } }
     >
@@ -73,7 +72,7 @@ const Staffbar = ( props ) => {
   }
 
   return (
-    <div className='rbc-staffbar' style={{paddingLeft: gutterPadding}}>
+    <div className='rbc-staffbar'>
       { staffsToGravatars( staffs, staffLayout ) }
       <span className='rbc-staffbar-buttons'>
         <EventFilterMenu

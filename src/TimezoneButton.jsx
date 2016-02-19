@@ -24,7 +24,7 @@ class TimezoneButton extends Component {
     } = this.state;
 
     return (
-      <span>
+      <div className="timezone-select">
         <a href='#'
           onClick = { ( e ) => {
             const toggled = ! showDialog;
@@ -38,7 +38,7 @@ class TimezoneButton extends Component {
         > { timezoneName }
         </a>
         { showDialog && this._renderDialog() }
-      </span>
+      </div>
     );
   }
 

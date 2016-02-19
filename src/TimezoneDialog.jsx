@@ -42,7 +42,9 @@ const TimezoneDialog = ( props ) => {
 
   return (
     <div className='rbc-timezone-popup-dialog dropdown'>
-      { timezoneCheckBoxes }
+      <ul>
+        { timezoneCheckBoxes }
+      </ul>
     </div>
   );
 };

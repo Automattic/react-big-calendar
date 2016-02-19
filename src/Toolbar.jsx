@@ -56,7 +56,7 @@ const JoinButton = ( props ) => {
 
   return (
       <button
-        className={ cn( 'rbc-toolbar-join-button', {
+        className={ cn( 'button-primary rbc-toolbar-join-button', {
           'joined': isStaff,
         } ) }
         type='button'
@@ -156,7 +156,8 @@ let Toolbar = React.createClass({
           <div className='rbc-toolbar-navigate'>
 	          <span className='rbc-btn-group'>
 	            <button
-	              type='button'
+                type='button'
+                className="button-secondary"
 	              onClick={this.navigate.bind(null, navigate.TODAY)}
 	            >
 	              {messages.today}
@@ -165,14 +166,14 @@ let Toolbar = React.createClass({
 	          <span className='rbc-btn-group'>
 	            <button
 	              type='button'
-	              className='button-img'
+	              className='button-secondary button-img'
 	              onClick={this.navigate.bind(null, navigate.PREVIOUS)}
 	            >
 	              <img src={ chevronLeft } />
 	            </button>
 	            <button
 	              type='button'
-	              className='button-img'
+	              className='button-secondary button-img'
 	              onClick={this.navigate.bind(null, navigate.NEXT)}
 	            >
 	              <img src={ chevronRight } />
@@ -183,7 +184,7 @@ let Toolbar = React.createClass({
 	            {
 	              viewNames.map(name =>
 	                <button type='button' key={name}
-	                  className={cn({'rbc-active': view === name})}
+	                  className={cn('button-secondary',{ 'rbc-active': view === name})}
 	                  onClick={this.view.bind(null, name)}
 	                >
 	                  {messages[name]}
