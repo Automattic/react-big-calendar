@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import uncontrollable from 'uncontrollable';
 import * as _ from 'underscore';
 import cn from 'classnames';
+import Cookies from 'js-cookie';
 import {
     accessor
   , elementType
@@ -453,11 +454,24 @@ let Calendar = React.createClass({
   },
 
   getInitialState() {
+    const savedCheckStatus = Cookies.getJSON( 'timezoneCheckStatus' ) || [ true ]; // check the first one by default
+    const savedEventFilterMode = Cookies.getJSON( 'eventFilterMode' ) || EventFilterMode.CurrentUserOnly;
+
     return {
-      eventFilterMode: EventFilterMode.CurrentUserOnly,
-      timezoneCheckStatus: [ true ], // check the first one by default
+      eventFilterMode: savedEventFilterMode,
+      timezoneCheckStatus: savedCheckStatus,
       freezeHeader: false,
     };
+  },
+
+  componentDidUpdate() {
+    const {
+      timezoneCheckStatus,
+      eventFilterMode,
+    } = this.state;
+
+    Cookies.set( 'timezoneCheckStatus', timezoneCheckStatus );
+    Cookies.set( 'eventFilterMode', eventFilterMode );
   },
 
   componentDidMount() {
