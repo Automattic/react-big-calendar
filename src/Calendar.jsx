@@ -384,6 +384,13 @@ let Calendar = React.createClass({
     isStaff: PropTypes.bool,
 
     /**
+     * An array of timezone strings. Any string recognized by moment.js can do.
+     * Note that 'Local' is a special one. We will transform it into
+     * the local time zone with `moment.tz.guess()`
+     */
+    availableTimezones: PropTypes.arrayOf( PropTypes.string ),
+
+    /**
      * Callback fired when the value of dropdown calendar boxchanges.
      *
      */
@@ -439,6 +446,8 @@ let Calendar = React.createClass({
       isStaff: false,
       calendarList: [],
 
+      availableTimezone: [ 'Local' ],
+
       staffingStatusFunc: () => {},
     };
   },
@@ -446,8 +455,7 @@ let Calendar = React.createClass({
   getInitialState() {
     return {
       eventFilterMode: EventFilterMode.CurrentUserOnly,
-      timezoneCheckStatus: [ true ],
-      availableTimezones: [ 'Local', 'UTC', 'EST' ],
+      timezoneCheckStatus: [ true ], // check the first one by default
       freezeHeader: false,
     };
   },
@@ -474,12 +482,12 @@ let Calendar = React.createClass({
       , calendarList
       , isStaff
       , staffingStatusFunc
+      , availableTimezones
       , ...props } = this.props;
 
     let {
       eventFilterMode,
       timezoneCheckStatus,
-      availableTimezones,
       freezeHeader,
     } = this.state;
 
