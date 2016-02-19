@@ -6,6 +6,7 @@ import { navigate } from './utils/constants';
 import iconCog from './img/icon-cog.svg';
 import chevronLeft from './img/chevron-left.svg';
 import chevronRight from './img/chevron-right.svg';
+import iconCheck from './img/icon-check.svg';
 
 // FIXME:
 // Duplicated code here and EventCard.
@@ -62,6 +63,7 @@ const JoinButton = ( props ) => {
         type='button'
         onClick={ callback }
       >
+        { isStaff && ( <img src={ iconCheck } /> ) }
         { msg }
       </button>
   );
