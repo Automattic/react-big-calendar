@@ -96,25 +96,11 @@ let DaySlot = React.createClass({
       , selectRangeFormat, culture
       , staffingStatusFunc
       , eventLayout
-      , onDropEventCard
       , ...props } = this.props;
 
     let totalMin = dates.diff(min, max, 'minutes');
     let numSlots = Math.ceil(totalMin / step);
     let children = [];
-
-    // Here is a trick. Normally, _selector.resume() should be called
-    // by the event handler of onMouseUp event of EventCard. However,
-    // if users d&d a EventCard to somewhere illegal, it will be popped back
-    // and the onMouseUp event won't be triggered. So we need to
-    // ensure _selector.resume() is definitely called after dropping here.
-    const wrappedOnDropEventCard = ( arg ) => {
-        if ( this._selector ) {
-          this._selector.resume();
-        }
-
-        onDropEventCard( arg );
-    };
 
     for (var i = 0; i < numSlots; i++) {
       const slotDate = dates.add( min, step * i, 'minutes' );
@@ -125,7 +111,6 @@ let DaySlot = React.createClass({
           key={i}
           staffingStatus={staffingStatus}
           date={slotDate}
-          onDropEventCard={wrappedOnDropEventCard}
         />
       );
     }
@@ -170,12 +155,25 @@ let DaySlot = React.createClass({
     let {
         me, events, step, min, culture, eventPropGetter
       , selected, eventTimeRangeFormat, eventComponent
-      , onEventEditing, onEventEdited
+      , onEventEditing, onEventEdited, onDropEventCard
       , startAccessor, endAccessor, titleAccessor } = this.props;
 
     let lastLeftOffset = 0;
 
     events.sort((a, b) => +get(a, startAccessor) - +get(b, startAccessor))
+
+    // Here is a trick. Normally, _selector.resume() should be called
+    // by the event handler of onMouseUp event of EventCard. However,
+    // if users d&d a EventCard to somewhere illegal, it will be popped back
+    // and the onMouseUp event won't be triggered. So we need to
+    // ensure _selector.resume() is definitely called after dropping here.
+    const wrappedOnDropEventCard = ( arg ) => {
+        if ( this._selector ) {
+          this._selector.resume();
+        }
+
+        onDropEventCard( arg );
+    };
 
     return events.map((event, idx) => {
       let start = get(event, startAccessor)
@@ -239,6 +237,7 @@ let DaySlot = React.createClass({
           onMouseUp={resumeSelector()}
           onEventEditing={onEventEditing}
           onEventEdited={onEventEdited}
+          onDropEventCard={wrappedOnDropEventCard}
           classNamePostfix={className}
           eventComponent={eventComponent}
           label={label}

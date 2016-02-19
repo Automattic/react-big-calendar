@@ -12,10 +12,14 @@ const eventCardDragSource = {
   },
 
   beginDrag( props ) {
-    const event = props.event;
+    const {
+      event,
+      onDropEventCard,
+    } = props;
 
     return {
-      ...event,
+      onDropEventCard: onDropEventCard,
+      event: event,
     };
   },
 }
