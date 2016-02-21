@@ -127,8 +127,7 @@ let DaySlot = React.createClass({
 
     // Only show NowIndicator for the current day.
     const now = new Date();
-    const currentBeginOfDay = dates.startOf( now, 'day' );
-    const showNowIndicator = currentBeginOfDay.getTime() === min.getTime();
+    const showNowIndicator = dates.sameDay( now, min );
     const nowPosProportion = ( positionFromDate( now, min, step ) / totalMin ) * 100;
 
     return (

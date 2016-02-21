@@ -97,6 +97,13 @@ let dates = Object.assign(dateMath, {
     return dates.eq(dateA, dateB, 'month')
   },
 
+  sameDay(dateA, dateB) {
+    const beginA = dates.startOf( dateA, 'day' ).getTime();
+    const beginB = dates.startOf( dateB, 'day' ).getTime();
+
+    return beginA === beginB;
+  },
+
   eqTime(dateA, dateB){
     return dates.hours(dateA) === dates.hours(dateB)
       && dates.minutes(dateA) === dates.minutes(dateB)
