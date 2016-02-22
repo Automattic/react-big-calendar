@@ -5,7 +5,7 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="calendar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="02d-calendar-day-available-empty" sketch:type="MSArtboardGroup" transform="translate(-236.000000, -136.000000)" stroke="#777777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <g id="02b-calendar-day-required" sketch:type="MSArtboardGroup" transform="translate(-236.000000, -136.000000)" stroke="#3D464D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <g id="day-header" sketch:type="MSLayerGroup" transform="translate(32.000000, 124.000000)">
                 <path d="M205.396484,16.8847656 L207.882569,19.3708503 L213.445834,13.8075852" id="Path-56" sketch:type="MSShapeGroup"></path>
             </g>
