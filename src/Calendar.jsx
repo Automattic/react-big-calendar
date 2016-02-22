@@ -526,9 +526,9 @@ let Calendar = React.createClass({
       filteredEvents = displayFilters[ eventFilterMode ]( events, me );
       eventLayout = computeEventLayout[ eventFilterMode ]( me, others );
 
-    } else { // weekly view
+    } else { // weekly view. we intentionally hard-code .CurrentUserOnly here. It's by design.
       filteredEvents = displayFilters[ EventFilterMode.CurrentUserOnly ]( events, me );
-      eventLayout = computeEventLayout[ eventFilterMode ]( me, others );
+      eventLayout = computeEventLayout[ EventFilterMode.CurrentUserOnly ]( me, others );
     }
 
     const staffLayout = computeStaffLayout( me, others );
