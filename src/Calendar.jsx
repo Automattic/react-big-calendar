@@ -455,7 +455,7 @@ let Calendar = React.createClass({
 
   getInitialState() {
     const savedCheckStatus = Cookies.getJSON( 'timezoneCheckStatus' ) || [ true ]; // check the first one by default
-    const savedEventFilterMode = Cookies.getJSON( 'eventFilterMode' ) || EventFilterMode.CurrentUserOnly;
+    const savedEventFilterMode = Cookies.getJSON( 'eventFilterMode' ) || EventFilterMode.All;
 
     return {
       eventFilterMode: savedEventFilterMode,
