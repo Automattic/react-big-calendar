@@ -220,10 +220,11 @@ let TimeGrid = React.createClass({
 
   renderHeader(range){
     let { dayFormat, culture } = this.props;
+    const now = new Date();
 
     return range.map((date, i) =>
       <div key={i}
-        className='rbc-header'
+        className={ cn('rbc-header',{'today': dates.sameDay(date, now)}) }
         style={segStyle(1, this._slots)}
       >
         <a href='#' onClick={this._headerClick.bind(null, date)}>
