@@ -2,6 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import message from './utils/messages';
 import { navigate } from './utils/constants';
+import dates from './utils/dates';
 
 import iconCog from './img/icon-cog.svg';
 import chevronLeft from './img/chevron-left.svg';
@@ -81,6 +82,7 @@ let Toolbar = React.createClass({
     let {
         messages, label
       , views: viewNames, view
+      , date
       , isStaff
       , calendarList, onCalendarChange, onClickJoin
       , onClickLeave } = this.props;
@@ -159,7 +161,7 @@ let Toolbar = React.createClass({
 	          <span className='rbc-btn-group'>
 	            <button
                 type='button'
-                className="button-secondary"
+                className={cn("button-secondary", {["today-active"]: dates.sameDay( date, new Date() )})}
 	              onClick={this.navigate.bind(null, navigate.TODAY)}
 	            >
 	              {messages.today}
