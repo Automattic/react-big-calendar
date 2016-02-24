@@ -461,6 +461,7 @@ let Calendar = React.createClass({
       eventFilterMode: savedEventFilterMode,
       timezoneCheckStatus: savedCheckStatus,
       freezeHeader: false,
+      currentGutterPadding: 0,
     };
   },
 
@@ -503,6 +504,7 @@ let Calendar = React.createClass({
       eventFilterMode,
       timezoneCheckStatus,
       freezeHeader,
+      currentGutterPadding,
     } = this.state;
 
     formats = defaultFormats(formats)
@@ -532,11 +534,6 @@ let Calendar = React.createClass({
     }
 
     const staffLayout = computeStaffLayout( me, others );
-
-    // FIXME:
-    // This is bad. Find a way to not compute the padding here, and care about responsiveness.
-    const numCheckedTimezones = _.countBy( timezoneCheckStatus, ( status ) => status )[ true ];
-    const gutterPadding = 50 * numCheckedTimezones;
 
     return (
       <div {...elementProps}
@@ -569,7 +566,7 @@ let Calendar = React.createClass({
             isStaff={isStaff}
             staffLayout={staffLayout}
             eventFilterMode={eventFilterMode}
-            gutterPadding={gutterPadding}
+            gutterPadding={currentGutterPadding}
             onPickFilterCurrentUserOnly={ () => {
               this.setState( {
                 eventFilterMode: EventFilterMode.CurrentUserOnly,
@@ -602,6 +599,7 @@ let Calendar = React.createClass({
           showDateHeader={'day' !== view}
           timezoneCheckStatus={timezoneCheckStatus}
           availableTimezones={availableTimezones}
+          currentGutterPadding={currentGutterPadding}
           onNavigate={this._navigate}
           onHeaderClick={this._headerClick}
           onSelectEvent={this._select}
@@ -611,6 +609,7 @@ let Calendar = React.createClass({
           onEventEditing={this._eventEditing}
           onEventEdited={this._eventEdited}
           onCheckTimezone={this._checkTimezone}
+          onGutterUpdate={( newPaddingValue ) => this.setState( { currentGutterPadding: newPaddingValue } ) }
         />
       </div>
     );

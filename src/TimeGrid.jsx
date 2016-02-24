@@ -55,11 +55,13 @@ let TimeGrid = React.createClass({
   },
 
   componentDidMount() {
-    this._adjustGutter()
+    this._adjustGutter();
+    this._tellCurrentPadding();
   },
 
   componentDidUpdate() {
-    this._adjustGutter()
+    this._adjustGutter();
+    this._tellCurrentPadding();
   },
 
   render() {
@@ -269,7 +271,22 @@ let TimeGrid = React.createClass({
     } else {
       classes.removeClass(header, 'rbc-header-overflowing')
     }
-  }
+  },
+
+  _tellCurrentPadding() {
+    const {
+      currentGutterPadding,
+      onGutterUpdate,
+    } = this.props;
+
+    const numGutter = this._gutters.length;
+    const lastGutterNode = findDOMNode( this._gutters[ numGutter - 1 ] );
+    const newPadding = lastGutterNode.getBoundingClientRect().right;
+
+    if ( newPadding !== currentGutterPadding ) {
+      this.props.onGutterUpdate( newPadding );
+    }
+  },
 
 });
 
