@@ -91,7 +91,7 @@ class EventCard extends Component {
     return connectDragSource(
       <div
         style={styleAfterDragging}
-        title={label + ': ' + title }
+        title={ label + ': ' + title }
         onClick={ ( event ) => {
           if ( ownedByCurrentUser && ! isSaving ) {
             const toggledShowDialog = ! showDialog;
@@ -109,7 +109,7 @@ class EventCard extends Component {
         })}
       >
         { isSaving && <LoadingSpinner /> }
-        { ownedByCurrentUser && <div className='rbc-event-label'>{label}</div> }
+        { ownedByCurrentUser && ! lowerPartial && <div className='rbc-event-label'>{label}</div> }
         <div className='rbc-event-content'>
           { EventComponent
             ? <EventComponent event={event} title={title}/>

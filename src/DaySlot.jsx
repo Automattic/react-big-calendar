@@ -246,6 +246,8 @@ let DaySlot = React.createClass({
           label={label}
           ownedByCurrentUser={event.userId === me.id }
           event={event}
+          upperPartial={upperPartial}
+          lowerPartial={lowerPartial}
         />
       );
     })
