@@ -152,7 +152,7 @@ let DaySlot = React.createClass({
 
   renderEvents(numSlots, totalMin, eventLayout) {
     let {
-        me, events, step, min, culture, eventPropGetter
+        me, events, step, min, max, culture, eventPropGetter
       , selected, eventTimeRangeFormat, eventComponent
       , onEventEditing, onEventEdited, onDropEventCard
       , startAccessor, endAccessor, titleAccessor } = this.props;
@@ -176,9 +176,13 @@ let DaySlot = React.createClass({
 
     return events.map((event, idx) => {
       let start = get(event, startAccessor)
+      let upperPartial = start < min;
+
       let end = get(event, endAccessor)
-      let startSlot = positionFromDate(start, min, step);
-      let endSlot = positionFromDate(end, min, step);
+      let lowerPartial = end > max;
+
+      let startSlot = upperPartial? positionFromDate( min, min, step ) : positionFromDate(start, min, step);
+      let endSlot   = lowerPartial? positionFromDate( max, min, step ) : positionFromDate(end, min, step);
 
       lastLeftOffset = Math.max(0,
         overlaps(event, events.slice(0, idx), this.props, lastLeftOffset + 1))
