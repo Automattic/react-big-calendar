@@ -68,13 +68,13 @@ class EventCard extends Component {
       connectDragSource,
       isDragging,
       event,
+      upperPartial,
+      lowerPartial,
     } = this.props;
 
     const {
       showDialog,
     } = this.state;
-
-    const EventComponent = eventComponent;
 
     // FIXME: should be access via a new accessor.
     const calendarColorName = 'calendar-color-' + ( event.calendarId % 8 );
@@ -111,14 +111,23 @@ class EventCard extends Component {
         { isSaving && <LoadingSpinner /> }
         { ownedByCurrentUser && ! lowerPartial && <div className='rbc-event-label'>{label}</div> }
         <div className='rbc-event-content'>
-          { EventComponent
-            ? <EventComponent event={event} title={title}/>
-            : title
-          }
+          { this._renderEventContent() }
         </div>
         { showDialog && this._renderDialog() }
       </div>
     );
+  }
+
+  _renderEventContent() {
+    const {
+      title,
+      event,
+      eventComponent,
+    } = this.props;
+
+    const EventComponent = eventComponent;
+
+    return ( EventComponent ? <EventComponent event={event} title={title}/> : title );
   }
 
   _renderDialog() {
