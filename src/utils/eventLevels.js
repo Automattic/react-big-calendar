@@ -54,8 +54,12 @@ export function eventLevels(rowSegments, limit = Infinity){
 }
 
 export function inRange(e, start, end, { startAccessor, endAccessor }){
-  let eStart = get(e, startAccessor)
-  let eEnd = get(e, endAccessor)
+  let eStart = get(e, startAccessor);
+  let eEnd = get(e, endAccessor);
+
+  // We need half-open range semantic. i.e. [eStart, eEnd).
+  // I didn't want to change the logic below too much, so I did this trick.
+  eEnd = new Date( eEnd.getTime() - 1 );
 
   let starts = dates.inRange(eStart, start, end, 'day')
   let during = dates.lt(eStart, start, 'day') && dates.gt(eEnd, end, 'day')
